@@ -7,8 +7,8 @@ export async function POST(request) {
   const body = await request.json();
   const { restaurantId, customerName, customerPhone, partySize } = body;
 
-  if (!restaurantId || !customerName) {
-    return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
+  if (!restaurantId || !customerName || !customerPhone) {
+    return NextResponse.json({ error: 'Name and phone number are required' }, { status: 400 });
   }
 
   const restaurant = db.prepare('SELECT * FROM restaurants WHERE id = ?').get(restaurantId);

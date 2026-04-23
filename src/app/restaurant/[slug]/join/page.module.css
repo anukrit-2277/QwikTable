@@ -15,7 +15,7 @@
 .form { display: flex; flex-direction: column; gap: 20px; }
 .field { display: flex; flex-direction: column; gap: 6px; }
 .label { font-size: 0.85rem; font-weight: 600; color: var(--text-secondary); }
-.optional { font-weight: 400; color: var(--text-muted); font-size: 0.78rem; }
+.required { color: var(--red); font-weight: 500; font-size: 0.85rem; margin-left: 2px; }
 .sizeRow { display: flex; gap: 8px; }
 .sizeBtn {
   flex: 1;

@@ -22,6 +22,7 @@ export default function JoinQueuePage({ params }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!form.name.trim()) { setError('Please enter your name'); return; }
+    if (!form.phone.trim()) { setError('Please enter your phone number'); return; }
     setSubmitting(true);
     setError('');
 
@@ -82,11 +83,12 @@ export default function JoinQueuePage({ params }) {
                 placeholder="Enter your name"
                 value={form.name}
                 onChange={e => setForm({ ...form, name: e.target.value })}
+                required
               />
             </div>
 
             <div className={styles.field}>
-              <label htmlFor="phone" className={styles.label}>Phone Number <span className={styles.optional}>(optional)</span></label>
+              <label htmlFor="phone" className={styles.label}>Phone Number <span className={styles.required}>*</span></label>
               <input
                 id="phone"
                 type="tel"
@@ -94,6 +96,7 @@ export default function JoinQueuePage({ params }) {
                 placeholder="Your phone number"
                 value={form.phone}
                 onChange={e => setForm({ ...form, phone: e.target.value })}
+                required
               />
             </div>
 
