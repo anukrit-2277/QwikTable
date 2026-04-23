@@ -182,12 +182,12 @@
 .breadcrumb {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 20px 24px 8px;
-  font-size: 0.82rem;
+  padding: 24px 24px 10px;
+  font-size: 0.95rem;
   color: var(--text-muted);
   font-weight: 500;
 }
-.breadcrumbActive { color: var(--text-primary); font-weight: 600; }
+.breadcrumbActive { color: var(--text-primary); font-weight: 700; }
 
 /* ===== Category Tabs ===== */
 .categoryTabs {
@@ -201,14 +201,14 @@
 .catTab {
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 14px 4px 14px;
+  gap: 10px;
+  padding: 16px 4px 16px;
   background: none;
   border: none;
   border-bottom: 3px solid transparent;
   color: var(--text-secondary);
-  font-size: 0.95rem;
-  font-weight: 600;
+  font-size: 1.1rem;
+  font-weight: 700;
   transition: var(--transition);
   white-space: nowrap;
 }
@@ -217,7 +217,7 @@
   color: var(--red) !important;
   border-bottom-color: var(--red) !important;
 }
-.catTabIcon { font-size: 1.3rem; }
+.catTabIcon { font-size: 1.5rem; }
 
 /* ===== Collections ===== */
 .collectionsSection {
@@ -234,20 +234,20 @@
 }
 .collectionsTitle {
   font-family: 'Playfair Display', Georgia, serif;
-  font-size: 1.8rem;
+  font-size: 2rem;
   font-weight: 800;
   color: var(--text-primary);
-  margin-bottom: 4px;
+  margin-bottom: 6px;
 }
 .collectionsSub {
-  font-size: 0.9rem;
+  font-size: 1.05rem;
   color: var(--text-secondary);
   font-weight: 500;
   line-height: 1.5;
 }
 .collectionsLink {
-  font-size: 0.88rem;
-  font-weight: 600;
+  font-size: 1rem;
+  font-weight: 700;
   color: var(--red);
   white-space: nowrap;
   flex-shrink: 0;
@@ -294,15 +294,15 @@
 }
 .collectionInfo h3 {
   font-family: 'Playfair Display', Georgia, serif;
-  font-size: 1.15rem;
-  font-weight: 700;
+  font-size: 1.3rem;
+  font-weight: 800;
   color: #FFFFFF;
   margin-bottom: 4px;
 }
 .collectionInfo span {
-  font-size: 0.8rem;
-  font-weight: 600;
-  color: rgba(255,255,255,0.8);
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: rgba(255,255,255,0.85);
 }
 
 /* ===== Filter Chips ===== */
@@ -321,12 +321,12 @@
   display: flex;
   align-items: center;
   gap: 6px;
-  padding: 8px 18px;
+  padding: 10px 20px;
   border-radius: 10px;
   background: var(--bg-secondary);
   border: 1px solid var(--border);
   color: var(--text-secondary);
-  font-size: 0.85rem;
+  font-size: 0.95rem;
   font-weight: 600;
   white-space: nowrap;
   transition: var(--transition);
@@ -344,10 +344,10 @@
   justify-content: space-between;
   align-items: center;
   max-width: 1200px;
-  margin: 12px auto 20px;
+  margin: 20px auto 24px;
   padding: 0 24px;
 }
-.sectionTitle { font-size: 1.4rem; font-weight: 800; font-family: 'Playfair Display', Georgia, serif; }
+.sectionTitle { font-size: 1.7rem; font-weight: 800; font-family: 'Playfair Display', Georgia, serif; }
 
 .viewToggle {
   display: flex;
@@ -420,7 +420,7 @@
   margin-bottom: 16px;
 }
 .featuresSub {
-  font-size: 1.05rem;
+  font-size: 1.15rem;
   color: var(--text-secondary);
   line-height: 1.6;
   font-weight: 500;

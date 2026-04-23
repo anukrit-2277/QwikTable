@@ -1,7 +1,6 @@
 'use client';
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import Navbar from '@/components/Navbar';
 import RestaurantCard from '@/components/RestaurantCard';
 import NearbyMap from '@/components/NearbyMap';
 import styles from './page.module.css';
@@ -301,7 +300,6 @@ export default function Home() {
       </section>
 
       {/* ===== Main Content Below ===== */}
-      <Navbar />
       <main className={styles.main} id="content-section">
 
         {/* Breadcrumb */}
