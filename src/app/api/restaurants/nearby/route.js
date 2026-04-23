@@ -4,8 +4,8 @@ import getDb from '@/lib/db';
 export async function GET(request) {
   const db = getDb();
   const { searchParams } = new URL(request.url);
-  const lat = parseFloat(searchParams.get('lat') || '28.6139');
-  const lng = parseFloat(searchParams.get('lng') || '77.2090');
+  const lat = parseFloat(searchParams.get('lat') || '26.9124');
+  const lng = parseFloat(searchParams.get('lng') || '75.7873');
 
   const restaurants = db.prepare(
     `SELECT r.*, 

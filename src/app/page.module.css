@@ -252,6 +252,9 @@
   white-space: nowrap;
   flex-shrink: 0;
   margin-top: 6px;
+  background: none;
+  border: none;
+  cursor: pointer;
 }
 .collectionsLink:hover { text-decoration: underline; }
 
@@ -369,8 +372,8 @@
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
-  gap: 16px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
   max-width: 1200px;
   margin: 20px auto 0;
   padding: 0 24px;
@@ -583,7 +586,7 @@
   .videoContent { gap: 24px; }
   .videoNavLinks { gap: 4px; }
   .videoNavLink { padding: 6px 14px; font-size: 0.82rem; }
-  .grid { grid-template-columns: 1fr; }
+  .grid { grid-template-columns: repeat(2, 1fr); }
   .scrollBtn { padding-bottom: 16px; }
   .featuresSection { padding: 60px 16px 80px; }
   .featuresTitle { font-size: 2rem; }
@@ -612,4 +615,5 @@
   .categoryTabs { gap: 16px; overflow-x: auto; }
   .catTab { font-size: 0.85rem; }
   .collectionsTitle { font-size: 1.4rem; }
+  .grid { grid-template-columns: 1fr; }
 }

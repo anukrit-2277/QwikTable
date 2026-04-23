@@ -90,69 +90,108 @@ function seedData() {
 
   const restaurants = [
     {
-      name: 'Aromas Kitchen',
-      slug: 'aromas-kitchen',
-      cuisine: 'Indian',
-      address: '23 Connaught Place, New Delhi',
-      lat: 28.6315,
-      lng: 77.2167,
-      avgTime: 22,
-      tables: 25,
-      occupied: 20,
-      image: '🍛',
-      rating: 4.6,
-    },
-    {
-      name: 'The Blue Bistro',
-      slug: 'the-blue-bistro',
-      cuisine: 'Continental',
-      address: '45 Hauz Khas Village, New Delhi',
-      lat: 28.5494,
-      lng: 77.2001,
-      avgTime: 30,
-      tables: 15,
+      name: 'Tapri Central',
+      slug: 'tapri-central',
+      cuisine: 'Cafe & Chai',
+      address: 'C-11, Prithviraj Road, C Scheme, Jaipur',
+      lat: 26.9110,
+      lng: 75.7870,
+      avgTime: 15,
+      tables: 20,
       occupied: 14,
-      image: '🥘',
-      rating: 4.3,
-    },
-    {
-      name: 'Sakura Sushi',
-      slug: 'sakura-sushi',
-      cuisine: 'Japanese',
-      address: '12 Khan Market, New Delhi',
-      lat: 28.6005,
-      lng: 77.2270,
-      avgTime: 18,
-      tables: 12,
-      occupied: 6,
-      image: '🍣',
-      rating: 4.8,
-    },
-    {
-      name: 'Trattoria Milano',
-      slug: 'trattoria-milano',
-      cuisine: 'Italian',
-      address: '8 Janpath Road, New Delhi',
-      lat: 28.6200,
-      lng: 77.2195,
-      avgTime: 25,
-      tables: 18,
-      occupied: 16,
-      image: '🍝',
+      image: '☕',
       rating: 4.5,
     },
     {
-      name: 'Smoky Grill House',
-      slug: 'smoky-grill-house',
-      cuisine: 'BBQ & Grill',
-      address: '67 Lodhi Colony, New Delhi',
-      lat: 28.5900,
-      lng: 77.2270,
+      name: 'Bar Palladio',
+      slug: 'bar-palladio',
+      cuisine: 'Italian & Bar',
+      address: 'Narain Niwas Palace Hotel, Kanota Bagh, Jaipur',
+      lat: 26.8986,
+      lng: 75.8110,
       avgTime: 35,
-      tables: 20,
-      occupied: 19,
-      image: '🥩',
+      tables: 18,
+      occupied: 17,
+      image: '🍷',
+      rating: 4.7,
+    },
+    {
+      name: 'Rawat Mishthan Bhandar',
+      slug: 'rawat-mishthan-bhandar',
+      cuisine: 'Indian Sweets & Snacks',
+      address: 'Station Road, Sindhi Camp, Jaipur',
+      lat: 26.9196,
+      lng: 75.7880,
+      avgTime: 12,
+      tables: 30,
+      occupied: 10,
+      image: '🍛',
+      rating: 4.3,
+    },
+    {
+      name: 'Suvarna Mahal',
+      slug: 'suvarna-mahal',
+      cuisine: 'Royal Indian Fine Dining',
+      address: 'Rambagh Palace, Bhawani Singh Road, Jaipur',
+      lat: 26.8950,
+      lng: 75.8050,
+      avgTime: 40,
+      tables: 15,
+      occupied: 14,
+      image: '👑',
+      rating: 4.8,
+    },
+    {
+      name: 'Laxmi Mishthan Bhandar (LMB)',
+      slug: 'lmb-jaipur',
+      cuisine: 'Rajasthani & North Indian',
+      address: 'Johari Bazaar, Jaipur',
+      lat: 26.9214,
+      lng: 75.8227,
+      avgTime: 20,
+      tables: 40,
+      occupied: 32,
+      image: '🍽️',
       rating: 4.4,
+    },
+    {
+      name: 'Handi Restaurant',
+      slug: 'handi-restaurant',
+      cuisine: 'Mughlai & North Indian',
+      address: 'MI Road, Jaipur',
+      lat: 26.9124,
+      lng: 75.7862,
+      avgTime: 25,
+      tables: 22,
+      occupied: 18,
+      image: '🥘',
+      rating: 4.2,
+    },
+    {
+      name: 'Curious Life Coffee Roasters',
+      slug: 'curious-life-coffee',
+      cuisine: 'Cafe & Continental',
+      address: 'C-14, Ashok Marg, C Scheme, Jaipur',
+      lat: 26.9062,
+      lng: 75.7920,
+      avgTime: 10,
+      tables: 12,
+      occupied: 5,
+      image: '☕',
+      rating: 4.6,
+    },
+    {
+      name: 'Niros',
+      slug: 'niros',
+      cuisine: 'Multi-Cuisine',
+      address: 'MI Road, Jaipur',
+      lat: 26.9130,
+      lng: 75.7900,
+      avgTime: 28,
+      tables: 25,
+      occupied: 22,
+      image: '🍝',
+      rating: 4.3,
     },
   ];
 
@@ -174,67 +213,101 @@ function seedData() {
   `);
 
   const menuData = {
-    1: [ // Aromas Kitchen
-      { name: 'Butter Chicken', desc: 'Creamy tomato-based curry with tender chicken', price: 380, cat: 'Mains', emoji: '🍗' },
+    1: [ // Tapri Central
+      { name: 'Masala Chai', desc: 'Signature spiced tea with aromatic spices', price: 60, cat: 'Drinks', emoji: '☕' },
+      { name: 'Bun Maska', desc: 'Toasted bun with fresh butter', price: 50, cat: 'Snacks', emoji: '🍞' },
+      { name: 'Maggi', desc: 'Classic 2-minute noodles with veggies', price: 80, cat: 'Snacks', emoji: '🍜' },
+      { name: 'Tapri Special Sandwich', desc: 'Grilled sandwich with cheese and chutney', price: 120, cat: 'Snacks', emoji: '🥪' },
+      { name: 'Cold Coffee', desc: 'Chilled blended coffee with ice cream', price: 140, cat: 'Drinks', emoji: '🧊' },
+      { name: 'Samosa', desc: 'Crispy pastry filled with spiced potatoes', price: 40, cat: 'Snacks', emoji: '🥟' },
+      { name: 'Poha', desc: 'Flattened rice with peanuts and lemon', price: 70, cat: 'Snacks', emoji: '🍚' },
+      { name: 'Kulhad Chai', desc: 'Traditional clay-pot tea', price: 40, cat: 'Drinks', emoji: '🫖' },
+      { name: 'Veg Puff', desc: 'Flaky pastry with spiced vegetable filling', price: 35, cat: 'Snacks', emoji: '🥐' },
+      { name: 'Lemon Iced Tea', desc: 'Refreshing iced tea with lemon', price: 100, cat: 'Drinks', emoji: '🍋' },
+    ],
+    2: [ // Bar Palladio
+      { name: 'Margherita Pizza', desc: 'Wood-fired with San Marzano tomatoes and mozzarella', price: 580, cat: 'Mains', emoji: '🍕' },
+      { name: 'Truffle Pasta', desc: 'Fresh pasta with truffle oil and parmesan', price: 650, cat: 'Mains', emoji: '🍝' },
+      { name: 'Bruschetta', desc: 'Toasted bread with tomato-basil topping', price: 420, cat: 'Starters', emoji: '🍞' },
+      { name: 'Lamb Chops', desc: 'Herb-crusted lamb with rosemary jus', price: 920, cat: 'Mains', emoji: '🥩' },
+      { name: 'Tiramisu', desc: 'Coffee-soaked layers with mascarpone cream', price: 450, cat: 'Desserts', emoji: '🍰' },
+      { name: 'Aperol Spritz', desc: 'Classic Italian cocktail', price: 550, cat: 'Drinks', emoji: '🍹' },
+      { name: 'Caesar Salad', desc: 'Romaine lettuce with parmesan and croutons', price: 380, cat: 'Starters', emoji: '🥗' },
+      { name: 'Risotto', desc: 'Creamy arborio rice with wild mushrooms', price: 620, cat: 'Mains', emoji: '🍄' },
+      { name: 'Red Wine', desc: 'House selection Cabernet Sauvignon', price: 750, cat: 'Drinks', emoji: '🍷' },
+      { name: 'Panna Cotta', desc: 'Vanilla cream dessert with berry coulis', price: 380, cat: 'Desserts', emoji: '🍮' },
+    ],
+    3: [ // Rawat Mishthan Bhandar
+      { name: 'Pyaaz Kachori', desc: 'Famous Jaipur onion-stuffed crispy kachori', price: 40, cat: 'Snacks', emoji: '🥟' },
+      { name: 'Mirchi Vada', desc: 'Stuffed green chili fritter, Jaipur style', price: 30, cat: 'Snacks', emoji: '🌶️' },
+      { name: 'Ghewar', desc: 'Traditional Rajasthani honey-soaked dessert', price: 120, cat: 'Desserts', emoji: '🍯' },
+      { name: 'Rabri', desc: 'Rich condensed milk dessert with saffron', price: 80, cat: 'Desserts', emoji: '🍨' },
+      { name: 'Dal Baati Churma', desc: 'Classic Rajasthani baked wheat balls', price: 180, cat: 'Mains', emoji: '🥘' },
+      { name: 'Mawa Kachori', desc: 'Sweet kachori filled with khoya', price: 60, cat: 'Desserts', emoji: '🥮' },
+      { name: 'Lassi', desc: 'Thick sweet yogurt drink', price: 50, cat: 'Drinks', emoji: '🥛' },
+      { name: 'Samosa', desc: 'Crispy triangle with spiced potato filling', price: 25, cat: 'Snacks', emoji: '🥟' },
+      { name: 'Jalebi', desc: 'Crispy saffron-soaked sweet spirals', price: 60, cat: 'Desserts', emoji: '🍩' },
+      { name: 'Masala Chai', desc: 'Spiced Indian tea with milk', price: 30, cat: 'Drinks', emoji: '☕' },
+    ],
+    4: [ // Suvarna Mahal
+      { name: 'Laal Maas', desc: 'Fiery Rajasthani red meat curry', price: 850, cat: 'Mains', emoji: '🥩' },
+      { name: 'Paneer Lababdar', desc: 'Cottage cheese in rich tomato-cashew gravy', price: 650, cat: 'Mains', emoji: '🧀' },
+      { name: 'Gatte ki Sabzi', desc: 'Gram flour dumplings in spiced yogurt gravy', price: 550, cat: 'Mains', emoji: '🥘' },
+      { name: 'Tandoori Jhinga', desc: 'Clay-oven roasted jumbo prawns', price: 1200, cat: 'Starters', emoji: '🦐' },
+      { name: 'Ker Sangri', desc: 'Rajasthani desert beans and berries', price: 480, cat: 'Mains', emoji: '🫘' },
+      { name: 'Shahi Tukda', desc: 'Royal bread pudding with saffron cream', price: 450, cat: 'Desserts', emoji: '🍮' },
+      { name: 'Garlic Naan', desc: 'Tandoor-baked bread with garlic butter', price: 120, cat: 'Breads', emoji: '🫓' },
+      { name: 'Biryani', desc: 'Fragrant basmati rice with aromatic spices', price: 750, cat: 'Mains', emoji: '🍚' },
+      { name: 'Gulab Jamun', desc: 'Soft milk dumplings in rose-scented syrup', price: 350, cat: 'Desserts', emoji: '🍯' },
+      { name: 'Mango Lassi', desc: 'Creamy yogurt drink with fresh mango', price: 250, cat: 'Drinks', emoji: '🥭' },
+    ],
+    5: [ // LMB
+      { name: 'Rajasthani Thali', desc: 'Complete platter with dal, sabzi, roti, rice', price: 450, cat: 'Mains', emoji: '🍽️' },
       { name: 'Paneer Tikka', desc: 'Smoky grilled cottage cheese with spices', price: 280, cat: 'Starters', emoji: '🧀' },
       { name: 'Dal Makhani', desc: 'Slow-cooked black lentils in butter gravy', price: 250, cat: 'Mains', emoji: '🥘' },
-      { name: 'Garlic Naan', desc: 'Freshly baked bread with garlic butter', price: 60, cat: 'Breads', emoji: '🫓' },
-      { name: 'Biryani', desc: 'Fragrant basmati rice with aromatic spices', price: 350, cat: 'Mains', emoji: '🍚' },
-      { name: 'Samosa', desc: 'Crispy pastry filled with spiced potatoes', price: 80, cat: 'Starters', emoji: '🥟' },
-      { name: 'Mango Lassi', desc: 'Creamy yogurt drink with fresh mango', price: 120, cat: 'Drinks', emoji: '🥭' },
-      { name: 'Gulab Jamun', desc: 'Soft milk dumplings in rose-scented syrup', price: 150, cat: 'Desserts', emoji: '🍯' },
-      { name: 'Tandoori Chicken', desc: 'Clay-oven roasted chicken marinated in yogurt', price: 320, cat: 'Starters', emoji: '🍖' },
+      { name: 'Butter Naan', desc: 'Freshly baked bread with butter', price: 60, cat: 'Breads', emoji: '🫓' },
+      { name: 'Malai Kofta', desc: 'Paneer and potato balls in creamy gravy', price: 320, cat: 'Mains', emoji: '🍲' },
+      { name: 'Kulfi Falooda', desc: 'Traditional ice cream with vermicelli', price: 180, cat: 'Desserts', emoji: '🍨' },
+      { name: 'Pav Bhaji', desc: 'Mashed vegetables with buttered bread rolls', price: 200, cat: 'Snacks', emoji: '🍞' },
+      { name: 'Lassi', desc: 'Thick sweet yogurt drink', price: 80, cat: 'Drinks', emoji: '🥛' },
+      { name: 'Rasgulla', desc: 'Soft spongy cheese balls in sugar syrup', price: 120, cat: 'Desserts', emoji: '⚪' },
+      { name: 'Masala Dosa', desc: 'Crispy crepe with spiced potato filling', price: 180, cat: 'Snacks', emoji: '🥞' },
+    ],
+    6: [ // Handi Restaurant
+      { name: 'Handi Chicken', desc: 'Signature slow-cooked chicken in clay pot', price: 380, cat: 'Mains', emoji: '🍗' },
+      { name: 'Mutton Rogan Josh', desc: 'Kashmiri-style lamb in aromatic gravy', price: 450, cat: 'Mains', emoji: '🥩' },
+      { name: 'Butter Chicken', desc: 'Creamy tomato-based curry with tender chicken', price: 350, cat: 'Mains', emoji: '🍗' },
+      { name: 'Seekh Kebab', desc: 'Minced meat kebabs from the tandoor', price: 280, cat: 'Starters', emoji: '🍖' },
+      { name: 'Biryani', desc: 'Fragrant basmati rice with spiced meat', price: 320, cat: 'Mains', emoji: '🍚' },
+      { name: 'Rumali Roti', desc: 'Thin handkerchief bread', price: 40, cat: 'Breads', emoji: '🫓' },
       { name: 'Raita', desc: 'Cooling yogurt with cucumber and mint', price: 70, cat: 'Sides', emoji: '🥒' },
-      { name: 'Masala Chai', desc: 'Spiced Indian tea with milk', price: 50, cat: 'Drinks', emoji: '☕' },
-      { name: 'Kulfi', desc: 'Traditional Indian ice cream with pistachios', price: 130, cat: 'Desserts', emoji: '🍨' },
+      { name: 'Phirni', desc: 'Ground rice pudding with cardamom', price: 120, cat: 'Desserts', emoji: '🍮' },
+      { name: 'Tandoori Chicken', desc: 'Clay-oven roasted whole chicken', price: 420, cat: 'Starters', emoji: '🍖' },
+      { name: 'Masala Chaas', desc: 'Spiced buttermilk', price: 50, cat: 'Drinks', emoji: '🥛' },
     ],
-    2: [ // Blue Bistro
-      { name: 'Grilled Salmon', desc: 'Atlantic salmon with herb butter sauce', price: 650, cat: 'Mains', emoji: '🐟' },
-      { name: 'Caesar Salad', desc: 'Romaine lettuce with parmesan and croutons', price: 280, cat: 'Starters', emoji: '🥗' },
-      { name: 'Mushroom Risotto', desc: 'Creamy arborio rice with wild mushrooms', price: 420, cat: 'Mains', emoji: '🍄' },
-      { name: 'Bruschetta', desc: 'Toasted bread with tomato-basil topping', price: 220, cat: 'Starters', emoji: '🍞' },
-      { name: 'Lamb Chops', desc: 'Herb-crusted lamb with rosemary jus', price: 720, cat: 'Mains', emoji: '🥩' },
-      { name: 'French Onion Soup', desc: 'Classic soup with gruyère cheese croutons', price: 250, cat: 'Starters', emoji: '🧅' },
-      { name: 'Tiramisu', desc: 'Coffee-soaked layers with mascarpone cream', price: 300, cat: 'Desserts', emoji: '🍰' },
-      { name: 'Red Wine', desc: 'House selection Cabernet Sauvignon', price: 450, cat: 'Drinks', emoji: '🍷' },
-      { name: 'Grilled Chicken', desc: 'Free-range chicken with roasted vegetables', price: 480, cat: 'Mains', emoji: '🍗' },
-      { name: 'Crème Brûlée', desc: 'Classic vanilla custard with caramelized sugar', price: 280, cat: 'Desserts', emoji: '🍮' },
+    7: [ // Curious Life Coffee Roasters
+      { name: 'Pour Over Coffee', desc: 'Single-origin hand-brewed pour over', price: 250, cat: 'Coffee', emoji: '☕' },
+      { name: 'Flat White', desc: 'Velvety espresso with steamed milk', price: 220, cat: 'Coffee', emoji: '☕' },
+      { name: 'Avocado Toast', desc: 'Sourdough with smashed avocado and eggs', price: 320, cat: 'Brunch', emoji: '🥑' },
+      { name: 'Acai Bowl', desc: 'Blended acai with granola and fresh fruit', price: 350, cat: 'Brunch', emoji: '🫐' },
+      { name: 'Banana Pancakes', desc: 'Fluffy pancakes with maple syrup', price: 280, cat: 'Brunch', emoji: '🥞' },
+      { name: 'Iced Latte', desc: 'Chilled espresso with cold milk', price: 200, cat: 'Coffee', emoji: '🧊' },
+      { name: 'Croissant', desc: 'Freshly baked butter croissant', price: 150, cat: 'Bakery', emoji: '🥐' },
+      { name: 'Matcha Latte', desc: 'Japanese green tea with frothed milk', price: 280, cat: 'Coffee', emoji: '🍵' },
+      { name: 'Cheese Sandwich', desc: 'Grilled cheese with herbs on sourdough', price: 240, cat: 'Brunch', emoji: '🧀' },
+      { name: 'Fresh Juice', desc: 'Cold-pressed seasonal fruit juice', price: 180, cat: 'Drinks', emoji: '🧃' },
     ],
-    3: [ // Sakura Sushi
-      { name: 'Salmon Nigiri', desc: 'Fresh salmon over pressed vinegared rice', price: 320, cat: 'Sushi', emoji: '🍣' },
-      { name: 'Dragon Roll', desc: 'Eel and cucumber topped with avocado', price: 450, cat: 'Sushi', emoji: '🐉' },
-      { name: 'Miso Soup', desc: 'Traditional soybean soup with tofu and seaweed', price: 150, cat: 'Starters', emoji: '🥣' },
-      { name: 'Edamame', desc: 'Steamed soybeans with sea salt', price: 120, cat: 'Starters', emoji: '🫛' },
-      { name: 'Tempura Platter', desc: 'Light and crispy battered shrimp and vegetables', price: 380, cat: 'Mains', emoji: '🍤' },
-      { name: 'Ramen', desc: 'Rich pork broth with noodles and soft egg', price: 350, cat: 'Mains', emoji: '🍜' },
-      { name: 'Gyoza', desc: 'Pan-fried dumplings with dipping sauce', price: 200, cat: 'Starters', emoji: '🥟' },
-      { name: 'Matcha Ice Cream', desc: 'Green tea flavored creamy ice cream', price: 180, cat: 'Desserts', emoji: '🍵' },
-      { name: 'Sake', desc: 'Premium Japanese rice wine', price: 400, cat: 'Drinks', emoji: '🍶' },
-      { name: 'California Roll', desc: 'Crab, avocado, and cucumber maki', price: 280, cat: 'Sushi', emoji: '🍱' },
-    ],
-    4: [ // Trattoria Milano
-      { name: 'Margherita Pizza', desc: 'Wood-fired with San Marzano tomatoes and mozzarella', price: 380, cat: 'Mains', emoji: '🍕' },
-      { name: 'Spaghetti Carbonara', desc: 'Classic Roman pasta with guanciale and pecorino', price: 350, cat: 'Mains', emoji: '🍝' },
-      { name: 'Caprese Salad', desc: 'Fresh mozzarella with tomatoes and basil', price: 250, cat: 'Starters', emoji: '🍅' },
-      { name: 'Penne Arrabbiata', desc: 'Spicy tomato sauce with garlic and chili', price: 300, cat: 'Mains', emoji: '🌶️' },
-      { name: 'Minestrone', desc: 'Hearty Italian vegetable soup', price: 200, cat: 'Starters', emoji: '🥕' },
-      { name: 'Panna Cotta', desc: 'Vanilla cream dessert with berry coulis', price: 250, cat: 'Desserts', emoji: '🍮' },
-      { name: 'Espresso', desc: 'Double-shot Italian espresso', price: 100, cat: 'Drinks', emoji: '☕' },
-      { name: 'Limoncello', desc: 'Traditional Italian lemon liqueur', price: 200, cat: 'Drinks', emoji: '🍋' },
-      { name: 'Focaccia', desc: 'Herb-infused olive oil flatbread', price: 150, cat: 'Starters', emoji: '🫓' },
-      { name: 'Gelato', desc: 'Authentic Italian ice cream trio', price: 220, cat: 'Desserts', emoji: '🍦' },
-    ],
-    5: [ // Smoky Grill House
-      { name: 'BBQ Ribs', desc: 'Slow-smoked pork ribs with house BBQ sauce', price: 580, cat: 'Mains', emoji: '🍖' },
-      { name: 'Smoked Brisket', desc: '12-hour smoked beef brisket', price: 620, cat: 'Mains', emoji: '🥩' },
-      { name: 'Buffalo Wings', desc: 'Crispy wings with hot sauce and blue cheese', price: 280, cat: 'Starters', emoji: '🍗' },
-      { name: 'Loaded Nachos', desc: 'Tortilla chips with cheese, jalapeños, and sour cream', price: 250, cat: 'Starters', emoji: '🫔' },
-      { name: 'Grilled Corn', desc: 'Charred corn with chili-lime butter', price: 120, cat: 'Sides', emoji: '🌽' },
-      { name: 'Coleslaw', desc: 'Creamy cabbage slaw with apple cider dressing', price: 100, cat: 'Sides', emoji: '🥬' },
-      { name: 'Craft Beer', desc: 'Local IPA on draft', price: 300, cat: 'Drinks', emoji: '🍺' },
-      { name: 'Smoky Burger', desc: 'Double patty with bacon and smoked gouda', price: 420, cat: 'Mains', emoji: '🍔' },
-      { name: 'Brownie Sundae', desc: 'Warm chocolate brownie with vanilla ice cream', price: 250, cat: 'Desserts', emoji: '🍫' },
-      { name: 'Lemonade', desc: 'Fresh-squeezed lemonade with mint', price: 120, cat: 'Drinks', emoji: '🍋' },
+    8: [ // Niros
+      { name: 'Chicken Stroganoff', desc: 'Creamy chicken in mushroom sauce', price: 420, cat: 'Mains', emoji: '🍗' },
+      { name: 'Paneer Butter Masala', desc: 'Cottage cheese in rich butter gravy', price: 350, cat: 'Mains', emoji: '🧀' },
+      { name: 'Fish & Chips', desc: 'Battered fish with crispy fries', price: 450, cat: 'Mains', emoji: '🐟' },
+      { name: 'Mushroom Soup', desc: 'Creamy wild mushroom soup', price: 180, cat: 'Starters', emoji: '🍄' },
+      { name: 'Chicken Tikka', desc: 'Charcoal-grilled marinated chicken', price: 320, cat: 'Starters', emoji: '🍖' },
+      { name: 'Brownie with Ice Cream', desc: 'Warm chocolate brownie sundae', price: 250, cat: 'Desserts', emoji: '🍫' },
+      { name: 'Masala Dosa', desc: 'South Indian crepe with potato filling', price: 200, cat: 'Snacks', emoji: '🥞' },
+      { name: 'Cold Coffee', desc: 'Chilled blended coffee shake', price: 160, cat: 'Drinks', emoji: '🧊' },
+      { name: 'Veg Biryani', desc: 'Fragrant rice with mixed vegetables', price: 280, cat: 'Mains', emoji: '🍚' },
+      { name: 'Caramel Custard', desc: 'Classic baked custard with caramel', price: 150, cat: 'Desserts', emoji: '🍮' },
     ],
   };
 
@@ -257,27 +330,44 @@ function seedData() {
   `);
 
   const queueTransaction = db.transaction(() => {
-    // Aromas Kitchen - busy
-    insertQueue.run(1, 'Rahul Sharma', '9876543210', 4, 'waiting', 'remote', 18, 1);
-    insertQueue.run(1, 'Priya Patel', '9876543211', 2, 'waiting', 'walkin', 26, 2);
-    insertQueue.run(1, 'Amit Kumar', '9876543212', 3, 'waiting', 'remote', 34, 3);
-    insertQueue.run(1, 'Sneha Gupta', '9876543213', 2, 'waiting', 'remote', 42, 4);
-    insertQueue.run(1, 'Vikram Singh', '9876543214', 6, 'waiting', 'walkin', 50, 5);
-    insertQueue.run(1, 'Neha Reddy', '9876543215', 2, 'waiting', 'remote', 58, 6);
+    // Tapri Central - moderate
+    insertQueue.run(1, 'Rahul Sharma', '9876543210', 3, 'waiting', 'remote', 15, 1);
+    insertQueue.run(1, 'Priya Meena', '9876543211', 2, 'waiting', 'walkin', 22, 2);
+    insertQueue.run(1, 'Arjun Joshi', '9876543212', 4, 'waiting', 'remote', 30, 3);
 
-    // Blue Bistro - very busy
-    insertQueue.run(2, 'John Miller', '9876543220', 2, 'waiting', 'remote', 32, 1);
-    insertQueue.run(2, 'Sarah Wilson', '9876543221', 4, 'waiting', 'walkin', 45, 2);
-    insertQueue.run(2, 'David Chen', '9876543222', 2, 'waiting', 'remote', 55, 3);
-    insertQueue.run(2, 'Emily Brown', '9876543223', 3, 'waiting', 'remote', 65, 4);
-    insertQueue.run(2, 'Michael Davis', '9876543224', 2, 'waiting', 'walkin', 75, 5);
-    insertQueue.run(2, 'Lisa Anderson', '9876543225', 5, 'waiting', 'remote', 85, 6);
-    insertQueue.run(2, 'Robert Taylor', '9876543226', 2, 'waiting', 'remote', 95, 7);
-    insertQueue.run(2, 'Emma Martinez', '9876543227', 4, 'waiting', 'walkin', 105, 8);
+    // Bar Palladio - very busy
+    insertQueue.run(2, 'Sneha Gupta', '9876543213', 2, 'waiting', 'remote', 35, 1);
+    insertQueue.run(2, 'Vikram Singh', '9876543214', 4, 'waiting', 'walkin', 50, 2);
+    insertQueue.run(2, 'Neha Rathore', '9876543215', 2, 'waiting', 'remote', 60, 3);
+    insertQueue.run(2, 'Aditya Verma', '9876543216', 6, 'waiting', 'remote', 70, 4);
+    insertQueue.run(2, 'Kavita Shekhawat', '9876543217', 2, 'waiting', 'walkin', 80, 5);
 
-    // Sakura Sushi - light
-    insertQueue.run(3, 'Yuki Tanaka', '9876543230', 2, 'waiting', 'remote', 8, 1);
-    insertQueue.run(3, 'Ken Watanabe', '9876543231', 3, 'waiting', 'walkin', 14, 2);
+    // Rawat - light
+    insertQueue.run(3, 'Deepak Kumawat', '9876543230', 2, 'waiting', 'walkin', 8, 1);
+    insertQueue.run(3, 'Sunita Yadav', '9876543231', 3, 'waiting', 'remote', 14, 2);
+
+    // Suvarna Mahal - very busy
+    insertQueue.run(4, 'Rajesh Kothari', '9876543240', 2, 'waiting', 'remote', 40, 1);
+    insertQueue.run(4, 'Meera Agarwal', '9876543241', 4, 'waiting', 'walkin', 55, 2);
+    insertQueue.run(4, 'Sanjay Mathur', '9876543242', 2, 'waiting', 'remote', 65, 3);
+
+    // LMB - busy
+    insertQueue.run(5, 'Pooja Sharma', '9876543250', 4, 'waiting', 'walkin', 20, 1);
+    insertQueue.run(5, 'Rohit Khandelwal', '9876543251', 2, 'waiting', 'remote', 30, 2);
+    insertQueue.run(5, 'Anita Jain', '9876543252', 3, 'waiting', 'remote', 38, 3);
+    insertQueue.run(5, 'Manish Saini', '9876543253', 2, 'waiting', 'walkin', 45, 4);
+
+    // Handi - moderate
+    insertQueue.run(6, 'Lakshmi Devi', '9876543260', 3, 'waiting', 'remote', 25, 1);
+    insertQueue.run(6, 'Hemant Pareek', '9876543261', 2, 'waiting', 'walkin', 35, 2);
+
+    // Curious Life - light
+    insertQueue.run(7, 'Tanvi Soni', '9876543270', 2, 'waiting', 'remote', 8, 1);
+
+    // Niros - busy
+    insertQueue.run(8, 'Suresh Choudhary', '9876543280', 4, 'waiting', 'walkin', 28, 1);
+    insertQueue.run(8, 'Divya Bhatt', '9876543281', 2, 'waiting', 'remote', 38, 2);
+    insertQueue.run(8, 'Neeraj Goyal', '9876543282', 3, 'waiting', 'remote', 46, 3);
   });
   queueTransaction();
 }

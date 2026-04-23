@@ -33,7 +33,7 @@ export default function NearbyMap({ restaurants }) {
 
   const center = restaurants.length > 0
     ? [restaurants[0].latitude, restaurants[0].longitude]
-    : [28.6139, 77.2090];
+    : [26.9124, 75.7873];
 
   const createIcon = (wait) => {
     const color = wait <= 10 ? '#7FB77E' : wait <= 25 ? '#E9C46A' : '#E76F51';
@@ -49,7 +49,7 @@ export default function NearbyMap({ restaurants }) {
   return (
     <div className={styles.wrap}>
       <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-      <MapContainer center={center} zoom={12} className={styles.map} scrollWheelZoom={false}>
+      <MapContainer center={center} zoom={13} className={styles.map} scrollWheelZoom={false}>
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
           url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"

@@ -8,9 +8,12 @@ import styles from './page.module.css';
 
 export default function Home() {
   const [restaurants, setRestaurants] = useState([]);
+  const [allRestaurants, setAllRestaurants] = useState([]);
   const [search, setSearch] = useState('');
   const [loading, setLoading] = useState(true);
   const [view, setView] = useState('grid');
+  const [activeFilter, setActiveFilter] = useState('');
+  const [activeTab, setActiveTab] = useState('queue');
 
   useEffect(() => {
     fetchRestaurants();
@@ -21,18 +24,102 @@ export default function Home() {
     const res = await fetch(`/api/restaurants${q ? `?q=${q}` : ''}`);
     const data = await res.json();
     setRestaurants(data);
+    setAllRestaurants(data);
     setLoading(false);
   };
 
   const handleSearch = (e) => {
-    setSearch(e.target.value);
-    if (e.target.value.length > 1 || e.target.value.length === 0) {
-      fetchRestaurants(e.target.value);
+    const val = e.target.value;
+    setSearch(val);
+    if (val.length > 1 || val.length === 0) {
+      fetchRestaurants(val);
+    }
+    // Scroll to restaurants section when typing in hero search
+    if (val.length > 0) {
+      setTimeout(() => {
+        document.getElementById('restaurant-grid')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }, 300);
     }
   };
 
   const scrollToContent = () => {
     document.getElementById('content-section')?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  const scrollToGrid = () => {
+    document.getElementById('restaurant-grid')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
+
+  // Filter handlers
+  const applyFilter = (filterName) => {
+    setActiveFilter(prev => prev === filterName ? '' : filterName);
+    const source = allRestaurants;
+    let filtered = source;
+
+    if (activeFilter === filterName) {
+      // Toggle off
+      setRestaurants(source);
+      return;
+    }
+
+    switch (filterName) {
+      case 'short-wait':
+        filtered = source.filter(r => r.estimated_wait <= 15);
+        break;
+      case 'rating':
+        filtered = source.filter(r => r.rating >= 4.0);
+        break;
+      case 'open-now':
+        filtered = source; // all are open in demo
+        break;
+      case 'walk-in':
+        filtered = source.filter(r => r.queue_count <= 3);
+        break;
+      case 'large-groups':
+        filtered = source.filter(r => r.total_tables >= 20);
+        break;
+      case 'pre-order':
+        filtered = source; // all support pre-order
+        break;
+      default:
+        filtered = source;
+    }
+    setRestaurants(filtered);
+    setTimeout(scrollToGrid, 200);
+  };
+
+  // Collection click handlers
+  const handleCollection = (type) => {
+    const source = allRestaurants;
+    let filtered = source;
+    switch (type) {
+      case 'shortest':
+        filtered = source.filter(r => r.estimated_wait <= 15);
+        break;
+      case 'premium':
+        filtered = source.filter(r => r.rating >= 4.5);
+        break;
+      case 'pre-order':
+        filtered = source; // all support it
+        break;
+      case 'walk-in':
+        filtered = source.filter(r => r.queue_count <= 3);
+        break;
+    }
+    setRestaurants(filtered);
+    setActiveFilter('');
+    setTimeout(scrollToGrid, 200);
+  };
+
+  // Tab handler
+  const handleTab = (tab) => {
+    setActiveTab(tab);
+    if (tab === 'map') {
+      setView('map');
+    } else {
+      setView('grid');
+    }
+    scrollToGrid();
   };
 
   return (
@@ -173,8 +260,8 @@ export default function Home() {
                     <div className={styles.phoneQueueCard}>
                       <span className={styles.phoneQueueEmoji}>🍕</span>
                       <div>
-                        <strong>Aromas Kitchen</strong>
-                        <p>Table in ~12 min</p>
+                        <strong>{allRestaurants[0]?.name || 'Tapri Central'}</strong>
+                        <p>Table in ~{allRestaurants[0]?.estimated_wait || 12} min</p>
                       </div>
                     </div>
                     <div className={styles.phoneTimer}>
@@ -224,15 +311,15 @@ export default function Home() {
 
         {/* Category Tabs (Zomato-style) */}
         <div className={styles.categoryTabs}>
-          <button className={`${styles.catTab} ${styles.catTabActive}`}>
+          <button className={`${styles.catTab} ${activeTab === 'queue' ? styles.catTabActive : ''}`} onClick={() => handleTab('queue')}>
             <span className={styles.catTabIcon}>🪑</span>
             <span>Join Queue</span>
           </button>
-          <button className={styles.catTab}>
+          <button className={`${styles.catTab} ${activeTab === 'preorder' ? styles.catTabActive : ''}`} onClick={() => handleTab('preorder')}>
             <span className={styles.catTabIcon}>🍽️</span>
             <span>Pre-Order</span>
           </button>
-          <button className={styles.catTab} onClick={() => setView('map')}>
+          <button className={`${styles.catTab} ${activeTab === 'map' ? styles.catTabActive : ''}`} onClick={() => handleTab('map')}>
             <span className={styles.catTabIcon}>🗺️</span>
             <span>Explore Map</span>
           </button>
@@ -252,40 +339,40 @@ export default function Home() {
                 Explore curated lists of top restaurants, cafes, and dining spots in Jaipur, based on wait times
               </p>
             </div>
-            <a href="#" className={styles.collectionsLink}>All collections in Jaipur →</a>
+            <button className={styles.collectionsLink} onClick={() => { setRestaurants(allRestaurants); setActiveFilter(''); scrollToGrid(); }}>All collections in Jaipur →</button>
           </div>
 
           <div className={styles.collectionsGrid}>
-            <div className={styles.collectionCard}>
-              <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=400&h=300&fit=crop" alt="Great cafes" className={styles.collectionImg} />
+            <div className={styles.collectionCard} onClick={() => handleCollection('shortest')}>
+              <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=400&h=300&fit=crop" alt="Shortest queues" className={styles.collectionImg} />
               <div className={styles.collectionOverlay} />
               <div className={styles.collectionInfo}>
                 <h3>Shortest Queues</h3>
-                <span>{restaurants.filter(r => r.estimated_wait <= 10).length} Places →</span>
+                <span>{allRestaurants.filter(r => r.estimated_wait <= 15).length} Places →</span>
               </div>
             </div>
-            <div className={styles.collectionCard}>
+            <div className={styles.collectionCard} onClick={() => handleCollection('premium')}>
               <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=400&h=300&fit=crop" alt="Premium dining" className={styles.collectionImg} />
               <div className={styles.collectionOverlay} />
               <div className={styles.collectionInfo}>
                 <h3>Premium Dining</h3>
-                <span>{restaurants.filter(r => r.rating >= 4.0).length} Places →</span>
+                <span>{allRestaurants.filter(r => r.rating >= 4.5).length} Places →</span>
               </div>
             </div>
-            <div className={styles.collectionCard}>
+            <div className={styles.collectionCard} onClick={() => handleCollection('pre-order')}>
               <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=400&h=300&fit=crop" alt="Pre-order friendly" className={styles.collectionImg} />
               <div className={styles.collectionOverlay} />
               <div className={styles.collectionInfo}>
                 <h3>Pre-Order Friendly</h3>
-                <span>{restaurants.length} Places →</span>
+                <span>{allRestaurants.length} Places →</span>
               </div>
             </div>
-            <div className={styles.collectionCard}>
-              <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400&h=300&fit=crop" alt="Quick bites" className={styles.collectionImg} />
+            <div className={styles.collectionCard} onClick={() => handleCollection('walk-in')}>
+              <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400&h=300&fit=crop" alt="Walk-in ready" className={styles.collectionImg} />
               <div className={styles.collectionOverlay} />
               <div className={styles.collectionInfo}>
                 <h3>Walk-in Ready</h3>
-                <span>{restaurants.filter(r => r.queue_count <= 3).length} Places →</span>
+                <span>{allRestaurants.filter(r => r.queue_count <= 3).length} Places →</span>
               </div>
             </div>
           </div>
@@ -293,15 +380,15 @@ export default function Home() {
 
         {/* Filter Chips */}
         <div className={styles.filterRow}>
-          <button className={styles.filterChip}>
-            <span>⚙️</span> Filters
+          <button className={styles.filterChip} onClick={() => { setRestaurants(allRestaurants); setActiveFilter(''); }}>
+            <span>⚙️</span> Reset
           </button>
-          <button className={`${styles.filterChip} ${styles.filterChipActive}`}>Short Wait</button>
-          <button className={styles.filterChip}>Rating: 4.0+</button>
-          <button className={styles.filterChip}>Pre-Order Available</button>
-          <button className={styles.filterChip}>Open Now</button>
-          <button className={styles.filterChip}>Walk-in Friendly</button>
-          <button className={styles.filterChip}>Large Groups</button>
+          <button className={`${styles.filterChip} ${activeFilter === 'short-wait' ? styles.filterChipActive : ''}`} onClick={() => applyFilter('short-wait')}>Short Wait</button>
+          <button className={`${styles.filterChip} ${activeFilter === 'rating' ? styles.filterChipActive : ''}`} onClick={() => applyFilter('rating')}>Rating: 4.0+</button>
+          <button className={`${styles.filterChip} ${activeFilter === 'pre-order' ? styles.filterChipActive : ''}`} onClick={() => applyFilter('pre-order')}>Pre-Order Available</button>
+          <button className={`${styles.filterChip} ${activeFilter === 'open-now' ? styles.filterChipActive : ''}`} onClick={() => applyFilter('open-now')}>Open Now</button>
+          <button className={`${styles.filterChip} ${activeFilter === 'walk-in' ? styles.filterChipActive : ''}`} onClick={() => applyFilter('walk-in')}>Walk-in Friendly</button>
+          <button className={`${styles.filterChip} ${activeFilter === 'large-groups' ? styles.filterChipActive : ''}`} onClick={() => applyFilter('large-groups')}>Large Groups</button>
         </div>
 
         {/* View Toggle + Restaurant Grid */}
@@ -331,7 +418,7 @@ export default function Home() {
         )}
 
         {/* Restaurant Cards */}
-        <div className={styles.grid}>
+        <div className={styles.grid} id="restaurant-grid">
           {loading ? (
             Array.from({ length: 3 }).map((_, i) => (
               <div key={i} className={styles.skeleton} />

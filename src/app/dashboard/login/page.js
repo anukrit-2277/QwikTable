@@ -52,11 +52,14 @@ export default function DashboardLogin() {
               <label htmlFor="slug" className={styles.label}>Restaurant ID</label>
               <select id="slug" className="input" value={slug} onChange={e => setSlug(e.target.value)}>
                 <option value="">Select restaurant...</option>
-                <option value="aromas-kitchen">Aromas Kitchen</option>
-                <option value="the-blue-bistro">The Blue Bistro</option>
-                <option value="sakura-sushi">Sakura Sushi</option>
-                <option value="trattoria-milano">Trattoria Milano</option>
-                <option value="smoky-grill-house">Smoky Grill House</option>
+                <option value="tapri-central">Tapri Central</option>
+                <option value="bar-palladio">Bar Palladio</option>
+                <option value="rawat-mishthan-bhandar">Rawat Mishthan Bhandar</option>
+                <option value="suvarna-mahal">Suvarna Mahal</option>
+                <option value="lmb-jaipur">Laxmi Mishthan Bhandar (LMB)</option>
+                <option value="handi-restaurant">Handi Restaurant</option>
+                <option value="curious-life-coffee">Curious Life Coffee Roasters</option>
+                <option value="niros">Niros</option>
               </select>
             </div>
 
