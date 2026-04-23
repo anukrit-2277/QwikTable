@@ -1,9 +1,10 @@
 import { NextResponse } from 'next/server';
-import getDb from '@/lib/db';
+import getDb, { ensureDb } from '@/lib/db';
 import bcrypt from 'bcryptjs';
 import { createToken } from '@/lib/auth';
 
 export async function POST(request) {
+  await ensureDb();
   const db = getDb();
   const { slug, password } = await request.json();
 

@@ -1,8 +1,9 @@
 import { NextResponse } from 'next/server';
-import getDb from '@/lib/db';
+import getDb, { ensureDb } from '@/lib/db';
 
 export async function POST(request, { params }) {
   const { id } = await params;
+  await ensureDb();
   const db = getDb();
   const body = await request.json();
 
@@ -31,6 +32,7 @@ export async function POST(request, { params }) {
 
 export async function GET(request, { params }) {
   const { id } = await params;
+  await ensureDb();
   const db = getDb();
 
   const preOrder = db.prepare('SELECT * FROM pre_orders WHERE queue_entry_id = ?').get(id);

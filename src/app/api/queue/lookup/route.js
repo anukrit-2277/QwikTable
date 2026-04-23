@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import getDb from '@/lib/db';
+import getDb, { ensureDb } from '@/lib/db';
 
 export async function GET(request) {
   const { searchParams } = new URL(request.url);
@@ -9,6 +9,7 @@ export async function GET(request) {
     return NextResponse.json({ error: 'Phone number required' }, { status: 400 });
   }
 
+  await ensureDb();
   const db = getDb();
 
   const entries = db.prepare(

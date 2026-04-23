@@ -1,8 +1,9 @@
 import { NextResponse } from 'next/server';
-import getDb from '@/lib/db';
+import getDb, { ensureDb } from '@/lib/db';
 import { getNextPosition, calculateWaitTime } from '@/lib/queue';
 
 export async function POST(request) {
+  await ensureDb();
   const db = getDb();
   const body = await request.json();
   const { restaurantId, customerName, customerPhone, partySize } = body;

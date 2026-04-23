@@ -1,25 +1,105 @@
-import Database from 'better-sqlite3';
-import path from 'path';
+import initSqlJs from 'sql.js/dist/sql-asm.js';
 import bcrypt from 'bcryptjs';
 
 // Use globalThis to persist DB across hot reloads and serverless invocations
-function getDb() {
-  if (!globalThis.__qwiktableDb) {
-    // Use /tmp on Vercel (read-only filesystem), project dir locally
-    const isVercel = process.env.VERCEL || process.env.VERCEL_ENV;
-    const dbDir = isVercel ? '/tmp' : process.cwd();
-    const dbPath = path.join(dbDir, 'qwiktable.db');
-    const db = new Database(dbPath);
-    db.pragma('journal_mode = WAL');
-    db.pragma('foreign_keys = ON');
-    globalThis.__qwiktableDb = db;
-    initializeDb();
+let dbReady = null;
+
+function getDbSync() {
+  if (globalThis.__qwiktableDb) {
+    return globalThis.__qwiktableDb;
   }
-  return globalThis.__qwiktableDb;
+  throw new Error('Database not initialized. Call await ensureDb() first.');
 }
 
-function initializeDb() {
-  const db = globalThis.__qwiktableDb;
+async function ensureDb() {
+  if (globalThis.__qwiktableDb) return globalThis.__qwiktableDb;
+  if (dbReady) return dbReady;
+
+  dbReady = (async () => {
+    const SQL = await initSqlJs();
+    const sqlDb = new SQL.Database();
+
+    // Create a better-sqlite3 compatible wrapper
+    const db = createWrapper(sqlDb);
+    globalThis.__qwiktableDb = db;
+    initializeDb(db);
+    return db;
+  })();
+
+  return dbReady;
+}
+
+// Wrapper to mimic better-sqlite3 API using sql.js
+function createWrapper(sqlDb) {
+  return {
+    _sqlDb: sqlDb,
+
+    exec(sql) {
+      sqlDb.run(sql);
+    },
+
+    prepare(sql) {
+      return {
+        _sql: sql,
+        _db: sqlDb,
+
+        run(...params) {
+          sqlDb.run(sql, params);
+          return { changes: sqlDb.getRowsModified() };
+        },
+
+        get(...params) {
+          const stmt = sqlDb.prepare(sql);
+          stmt.bind(params);
+          if (stmt.step()) {
+            const cols = stmt.getColumnNames();
+            const vals = stmt.get();
+            const row = {};
+            cols.forEach((col, i) => { row[col] = vals[i]; });
+            stmt.free();
+            return row;
+          }
+          stmt.free();
+          return undefined;
+        },
+
+        all(...params) {
+          const results = [];
+          const stmt = sqlDb.prepare(sql);
+          stmt.bind(params);
+          while (stmt.step()) {
+            const cols = stmt.getColumnNames();
+            const vals = stmt.get();
+            const row = {};
+            cols.forEach((col, i) => { row[col] = vals[i]; });
+            results.push(row);
+          }
+          stmt.free();
+          return results;
+        },
+      };
+    },
+
+    transaction(fn) {
+      return (...args) => {
+        sqlDb.run('BEGIN TRANSACTION');
+        try {
+          fn(...args);
+          sqlDb.run('COMMIT');
+        } catch (e) {
+          sqlDb.run('ROLLBACK');
+          throw e;
+        }
+      };
+    },
+
+    pragma() {
+      // no-op for sql.js
+    },
+  };
+}
+
+function initializeDb(db) {
   db.exec(`
     CREATE TABLE IF NOT EXISTS restaurants (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -80,11 +160,11 @@ function initializeDb() {
   // Seed data if restaurants table is empty
   const count = db.prepare('SELECT COUNT(*) as c FROM restaurants').get();
   if (count.c === 0) {
-    seedData();
+    seedData(db);
   }
 }
 
-function seedData() {
+function seedData(db) {
   const hash = bcrypt.hashSync('admin123', 10);
 
   const insertRestaurant = db.prepare(`
@@ -376,4 +456,5 @@ function seedData() {
   queueTransaction();
 }
 
-export default getDb;
+export { ensureDb };
+export default getDbSync;

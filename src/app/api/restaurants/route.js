@@ -1,7 +1,8 @@
 import { NextResponse } from 'next/server';
-import getDb from '@/lib/db';
+import getDb, { ensureDb } from '@/lib/db';
 
 export async function GET(request) {
+  await ensureDb();
   const db = getDb();
   const { searchParams } = new URL(request.url);
   const q = searchParams.get('q') || '';

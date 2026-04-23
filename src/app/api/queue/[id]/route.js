@@ -1,8 +1,9 @@
 import { NextResponse } from 'next/server';
-import getDb from '@/lib/db';
+import getDb, { ensureDb } from '@/lib/db';
 
 export async function GET(request, { params }) {
   const { id } = await params;
+  await ensureDb();
   const db = getDb();
 
   const entry = db.prepare(
@@ -43,6 +44,7 @@ export async function GET(request, { params }) {
 
 export async function DELETE(request, { params }) {
   const { id } = await params;
+  await ensureDb();
   const db = getDb();
 
   const entry = db.prepare('SELECT * FROM queue_entries WHERE id = ?').get(id);

@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import getDb from '@/lib/db';
+import getDb, { ensureDb } from '@/lib/db';
 import { verifyToken, getTokenFromRequest } from '@/lib/auth';
 
 export async function GET(request) {
@@ -13,6 +13,7 @@ export async function GET(request) {
     return NextResponse.json({ error: 'Invalid token' }, { status: 401 });
   }
 
+  await ensureDb();
   const db = getDb();
   const entries = db.prepare(
     `SELECT qe.*, 
@@ -39,6 +40,7 @@ export async function PATCH(request) {
     return NextResponse.json({ error: 'Invalid token' }, { status: 401 });
   }
 
+  await ensureDb();
   const db = getDb();
   const { entryId, action } = await request.json();
 
