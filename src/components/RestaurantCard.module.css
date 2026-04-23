@@ -166,8 +166,19 @@
   50% { opacity: 0.4; }
 }
 
-@media (max-width: 640px) {
-  .imageWrap { height: 170px; }
+@media (max-width: 768px) {
+  .imageWrap { height: 180px; }
   .info { padding: 12px 14px 14px; }
-  .name { font-size: 1rem; }
+  .name { font-size: 1.05rem; }
+  .cuisine, .cost { font-size: 0.85rem; }
+  .address, .wait { font-size: 0.8rem; }
+}
+
+@media (max-width: 480px) {
+  .imageWrap { height: 200px; }
+  .info { padding: 14px 16px 16px; }
+  .name { font-size: 1.1rem; }
+  .ratingBadge { font-size: 0.8rem; padding: 3px 8px; }
+  .waitBadge { font-size: 0.7rem; padding: 4px 10px; }
+  .queuePill { font-size: 0.68rem; }
 }

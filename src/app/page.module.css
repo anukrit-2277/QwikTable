@@ -579,15 +579,31 @@
 }
 
 /* ===== Responsive ===== */
+
+/* Tablet landscape */
+@media (max-width: 1024px) {
+  .grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+  .collectionsGrid { grid-template-columns: repeat(2, 1fr); }
+  .featuresGrid { gap: 28px; }
+  .videoTitle { font-size: 3rem; }
+}
+
+/* Tablet portrait */
 @media (max-width: 768px) {
+  .videoHero { min-height: 500px; }
   .videoTitle { font-size: 2.2rem; }
   .videoLogo2 { font-size: 2rem; }
   .videoSub { font-size: 0.95rem; }
-  .videoContent { gap: 24px; }
+  .videoContent { gap: 24px; padding: 0 20px; }
+  .videoSearch { max-width: 90%; }
+  .videoNavInner { padding: 0 16px; }
   .videoNavLinks { gap: 4px; }
-  .videoNavLink { padding: 6px 14px; font-size: 0.82rem; }
-  .grid { grid-template-columns: repeat(2, 1fr); }
+  .videoNavLink { padding: 6px 12px; font-size: 0.82rem; }
+  .videoLogo { font-size: 1.3rem; }
+
+  .grid { grid-template-columns: repeat(2, 1fr); gap: 16px; padding: 0 16px; }
   .scrollBtn { padding-bottom: 16px; }
+
   .featuresSection { padding: 60px 16px 80px; }
   .featuresTitle { font-size: 2rem; }
   .featuresGrid { flex-direction: column; gap: 32px; }
@@ -596,24 +612,59 @@
   .featureEmoji { font-size: 1.6rem; }
   .featureLabel { font-size: 0.78rem; }
   .phoneFrame { width: 220px; height: 420px; }
+
   .collectionsGrid { grid-template-columns: repeat(2, 1fr); }
   .collectionCard { height: 200px; }
-  .collectionsHeader { flex-direction: column; }
-  .categoryTabs { gap: 20px; }
+  .collectionsHeader { flex-direction: column; gap: 8px; }
+  .collectionsSection { padding: 0 16px; }
+  .collectionsTitle { font-size: 1.6rem; }
+
+  .categoryTabs { gap: 20px; padding: 0 16px; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .breadcrumb { padding: 20px 16px 8px; }
+
+  .filterRow { padding: 0 16px; overflow-x: auto; -webkit-overflow-scrolling: touch; flex-wrap: nowrap; }
+  .filterRow::-webkit-scrollbar { display: none; }
+
+  .toolbar { padding: 0 16px; margin: 16px auto 16px; }
+  .sectionTitle { font-size: 1.3rem; }
 }
 
+/* Mobile */
 @media (max-width: 480px) {
+  .videoHero { min-height: 450px; }
   .videoTitle { font-size: 1.8rem; }
-  .videoLogo2 { font-size: 1.6rem; }
+  .videoLogo2 { font-size: 1.5rem; }
+  .videoSub { font-size: 0.88rem; }
   .videoSub br { display: none; }
-  .videoNavInner { padding: 0 16px; }
-  .videoLogo { font-size: 1.3rem; }
+  .videoContent { gap: 20px; padding: 0 16px; }
+  .videoSearch { max-width: 100%; }
+  .videoSearchBar { padding: 4px 6px 4px 16px; border-radius: 12px; }
+  .videoSearchInput { font-size: 0.9rem; padding: 12px 0; }
+  .videoNavInner { padding: 0 12px; }
+  .videoLogo { font-size: 1.2rem; }
+  .videoNavLink { padding: 5px 10px; font-size: 0.75rem; }
+
+  .grid { grid-template-columns: 1fr; gap: 16px; padding: 0 16px; }
+
   .featureCard { min-width: 90px; padding: 14px 16px; }
   .phoneFrame { width: 200px; height: 380px; }
+
   .collectionsGrid { grid-template-columns: 1fr; }
   .collectionCard { height: 180px; }
-  .categoryTabs { gap: 16px; overflow-x: auto; }
-  .catTab { font-size: 0.85rem; }
   .collectionsTitle { font-size: 1.4rem; }
-  .grid { grid-template-columns: 1fr; }
+  .collectionsSub { font-size: 0.9rem; }
+
+  .categoryTabs { gap: 16px; overflow-x: auto; padding: 0 16px; }
+  .catTab { font-size: 0.9rem; gap: 6px; }
+  .catTabIcon { font-size: 1.2rem; }
+
+  .breadcrumb { padding: 16px 16px 6px; font-size: 0.85rem; }
+
+  .filterRow { padding: 0 16px; gap: 8px; }
+  .filterChip { padding: 8px 14px; font-size: 0.82rem; }
+
+  .toolbar { padding: 0 16px; flex-wrap: wrap; gap: 8px; }
+  .sectionTitle { font-size: 1.2rem; }
+
+  .main { padding-bottom: 40px; }
 }

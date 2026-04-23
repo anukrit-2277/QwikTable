@@ -3,16 +3,16 @@ import Link from 'next/link';
 import { motion } from 'framer-motion';
 import styles from './RestaurantCard.module.css';
 
-// Map restaurant slugs to Unsplash food images
+// Map restaurant slugs to cuisine-specific food images
 const RESTAURANT_IMAGES = {
-  'tapri-central': 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&h=400&fit=crop',
-  'bar-palladio': 'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=600&h=400&fit=crop',
-  'rawat-mishthan-bhandar': 'https://images.unsplash.com/photo-1601050690597-df0568f70950?w=600&h=400&fit=crop',
-  'suvarna-mahal': 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=600&h=400&fit=crop',
-  'lmb-jaipur': 'https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=600&h=400&fit=crop',
-  'handi-restaurant': 'https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?w=600&h=400&fit=crop',
-  'curious-life-coffee': 'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=600&h=400&fit=crop',
-  'niros': 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=600&h=400&fit=crop',
+  'tapri-central': 'https://images.unsplash.com/photo-1597318181409-cf64d0b5d8a2?w=600&h=400&fit=crop',       // masala chai cups
+  'bar-palladio': 'https://images.unsplash.com/photo-1544148103-0773bf10d330?w=600&h=400&fit=crop',           // elegant restaurant interior
+  'rawat-mishthan-bhandar': 'https://images.unsplash.com/photo-1589301760014-d929f3979dbc?w=600&h=400&fit=crop', // Indian mithai/sweets
+  'suvarna-mahal': 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=600&h=400&fit=crop',      // royal dining hall
+  'lmb-jaipur': 'https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=600&h=400&fit=crop',         // Indian thali
+  'handi-restaurant': 'https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?w=600&h=400&fit=crop',   // biryani/mughlai
+  'curious-life-coffee': 'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=600&h=400&fit=crop', // latte art
+  'niros': 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=600&h=400&fit=crop',               // food spread
 };
 
 const DEFAULT_IMAGE = 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=600&h=400&fit=crop';
@@ -23,8 +23,18 @@ export default function RestaurantCard({ restaurant, index = 0 }) {
   const waitColor = restaurant.estimated_wait <= 10 ? 'green' : restaurant.estimated_wait <= 25 ? 'amber' : 'red';
   const imgSrc = RESTAURANT_IMAGES[restaurant.slug] || DEFAULT_IMAGE;
 
-  // Estimate avg cost for two
-  const avgCost = restaurant.rating >= 4.5 ? '₹2,000' : restaurant.rating >= 4.0 ? '₹1,200' : '₹800';
+  // Realistic avg cost for two based on restaurant type
+  const COST_MAP = {
+    'tapri-central': '₹300',
+    'bar-palladio': '₹2,500',
+    'rawat-mishthan-bhandar': '₹200',
+    'suvarna-mahal': '₹4,000',
+    'lmb-jaipur': '₹600',
+    'handi-restaurant': '₹800',
+    'curious-life-coffee': '₹500',
+    'niros': '₹1,200',
+  };
+  const avgCost = COST_MAP[restaurant.slug] || '₹800';
 
   return (
     <motion.div
@@ -40,6 +50,7 @@ export default function RestaurantCard({ restaurant, index = 0 }) {
             alt={restaurant.name}
             className={styles.image}
             loading="lazy"
+            onError={(e) => { e.target.src = DEFAULT_IMAGE; }}
           />
           {/* Wait badge on image */}
           <div className={`${styles.waitBadge} ${styles[waitColor]}`}>
