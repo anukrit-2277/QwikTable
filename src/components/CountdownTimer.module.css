@@ -3,12 +3,10 @@
 .timer { display: flex; align-items: center; gap: 4px; }
 .num {
   font-size: 3rem;
-  font-weight: 800;
+  font-weight: 700;
   letter-spacing: -0.02em;
-  background: linear-gradient(135deg, #00d4aa, #00b894);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  font-family: 'Playfair Display', Georgia, serif;
+  color: var(--accent);
   min-width: 70px;
   text-align: center;
 }
@@ -22,13 +20,13 @@
   width: 100%;
   max-width: 200px;
   height: 4px;
-  background: rgba(255,255,255,0.06);
+  background: var(--bg-input);
   border-radius: 4px;
   overflow: hidden;
 }
 .fill {
   height: 100%;
-  background: linear-gradient(90deg, #00d4aa, #00b894);
+  background: linear-gradient(90deg, var(--accent), #5A7A5D);
   border-radius: 4px;
 }
 @keyframes blink {

@@ -2,15 +2,15 @@
 .card {
   width: 100%;
   max-width: 480px;
-  background: rgba(255,255,255,0.04);
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(255,255,255,0.08);
-  border-radius: 22px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-lg);
   padding: 36px;
 }
 .cardHeader { display: flex; align-items: center; gap: 14px; margin-bottom: 32px; }
 .emoji { font-size: 2.8rem; }
-.title { font-size: 1.5rem; font-weight: 800; }
+.title { font-size: 1.5rem; font-weight: 700; font-family: 'Playfair Display', Georgia, serif; }
 .subtitle { font-size: 0.9rem; color: var(--text-secondary); margin-top: 2px; }
 .form { display: flex; flex-direction: column; gap: 20px; }
 .field { display: flex; flex-direction: column; gap: 6px; }
@@ -21,17 +21,17 @@
   flex: 1;
   padding: 12px;
   border-radius: 12px;
-  background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(255,255,255,0.08);
+  background: var(--bg-input);
+  border: 1px solid var(--border);
   color: var(--text-secondary);
   font-size: 1rem;
   font-weight: 600;
   transition: var(--transition);
 }
-.sizeBtn:hover { background: rgba(255,255,255,0.08); color: var(--text-primary); }
+.sizeBtn:hover { background: var(--bg-card-hover); color: var(--text-primary); }
 .sizeActive {
   background: var(--accent-soft) !important;
-  border-color: rgba(0,212,170,0.3) !important;
+  border-color: rgba(107,142,110,0.25) !important;
   color: var(--accent) !important;
 }
 .error { color: var(--red); font-size: 0.85rem; font-weight: 500; }

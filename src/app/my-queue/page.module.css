@@ -1,32 +1,32 @@
 .main { max-width: 640px; margin: 0 auto; padding: 24px; display: flex; flex-direction: column; gap: 24px; }
 .hero { text-align: center; padding: 40px 0 8px; }
 .heroIcon { font-size: 3rem; display: block; margin-bottom: 12px; }
-.title { font-size: 2rem; font-weight: 900; letter-spacing: -0.03em; }
+.title { font-size: 2rem; font-weight: 700; letter-spacing: -0.02em; font-family: 'Playfair Display', Georgia, serif; }
 .subtitle { font-size: 0.95rem; color: var(--text-secondary); margin-top: 8px; line-height: 1.5; }
 .searchCard {
-  background: rgba(255,255,255,0.04);
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(255,255,255,0.08);
-  border-radius: 18px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
   padding: 24px;
 }
 .inputRow { display: flex; gap: 10px; }
 .inputRow .input { flex: 1; }
 .error { color: var(--red); font-size: 0.85rem; font-weight: 500; margin-top: 10px; }
 .results { display: flex; flex-direction: column; gap: 12px; }
-.resultsTitle { font-size: 1.1rem; font-weight: 700; }
+.resultsTitle { font-size: 1.1rem; font-weight: 700; font-family: 'Playfair Display', Georgia, serif; }
 .entryCard {
-  background: rgba(255,255,255,0.04);
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(255,255,255,0.08);
-  border-radius: 16px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
   padding: 20px;
   display: flex;
   flex-direction: column;
   gap: 14px;
 }
 .entryHeader { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
-.entryRestaurant { font-size: 1.1rem; font-weight: 700; }
+.entryRestaurant { font-size: 1.1rem; font-weight: 700; font-family: 'Playfair Display', Georgia, serif; }
 .entryMeta { font-size: 0.82rem; color: var(--text-muted); margin-top: 2px; }
 .statusBadge {
   padding: 5px 14px;
@@ -35,32 +35,33 @@
   font-weight: 600;
   white-space: nowrap;
 }
-.statusWaiting { background: rgba(255,179,71,0.12); color: #ffb347; }
-.statusNotified { background: rgba(0,212,170,0.12); color: #00d4aa; animation: pulseGlow 2s infinite; }
-.statusSeated { background: rgba(100,200,100,0.12); color: #64c864; }
-.statusDefault { background: rgba(255,255,255,0.06); color: var(--text-muted); }
+.statusWaiting { background: var(--amber-soft); color: #B8940A; }
+.statusNotified { background: var(--green-soft); color: #5A8F59; animation: breathe 3s infinite; }
+.statusSeated { background: var(--green-soft); color: #5A8F59; }
+.statusDefault { background: var(--bg-input); color: var(--text-muted); }
 .alertBanner {
   padding: 14px 18px;
-  border-radius: 14px;
-  background: linear-gradient(135deg, rgba(0,212,170,0.15), rgba(0,184,148,0.08));
-  border: 1px solid rgba(0,212,170,0.25);
+  border-radius: var(--radius-md);
+  background: var(--accent-soft);
+  border: 1px solid rgba(107,142,110,0.15);
   font-size: 0.9rem;
   color: var(--text-secondary);
-  animation: pulseGlow 3s ease-in-out infinite;
+  animation: breathe 4s ease-in-out infinite;
 }
 .alertBanner strong { color: var(--accent); }
 .waitInfo { display: flex; gap: 24px; }
 .waitStat { display: flex; flex-direction: column; gap: 2px; }
-.waitValue { font-size: 1.3rem; font-weight: 800; color: var(--accent); }
+.waitValue { font-size: 1.3rem; font-weight: 700; color: var(--accent); font-family: 'Playfair Display', Georgia, serif; }
 .waitLabel { font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.06em; }
 .entryActions { display: flex; }
 .infoCard {
-  background: rgba(255,255,255,0.03);
-  border: 1px solid rgba(255,255,255,0.06);
-  border-radius: 18px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
   padding: 24px;
 }
-.infoCard h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 16px; }
+.infoCard h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 16px; font-family: 'Playfair Display', Georgia, serif; }
 .steps { display: flex; flex-direction: column; gap: 16px; }
 .step { display: flex; gap: 14px; align-items: flex-start; }
 .stepNum {
@@ -71,9 +72,9 @@
 }
 .step strong { font-size: 0.9rem; display: block; margin-bottom: 2px; }
 .step p { font-size: 0.82rem; color: var(--text-muted); line-height: 1.4; }
-@keyframes pulseGlow {
-  0%, 100% { box-shadow: 0 0 0 rgba(0,212,170,0); }
-  50% { box-shadow: 0 0 20px rgba(0,212,170,0.15); }
+@keyframes breathe {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.005); }
 }
 @media (max-width: 640px) {
   .inputRow { flex-direction: column; }

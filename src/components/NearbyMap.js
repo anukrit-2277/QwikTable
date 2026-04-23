@@ -36,10 +36,11 @@ export default function NearbyMap({ restaurants }) {
     : [28.6139, 77.2090];
 
   const createIcon = (wait) => {
-    const color = wait <= 10 ? '#00d4aa' : wait <= 25 ? '#ffb347' : '#ff6b6b';
+    const color = wait <= 10 ? '#7FB77E' : wait <= 25 ? '#E9C46A' : '#E76F51';
+    const textColor = wait <= 25 ? '#2F2F2F' : '#FFF';
     return L.divIcon({
       className: styles.customMarker,
-      html: `<div style="background:${color};color:#000;font-weight:800;font-size:11px;padding:4px 8px;border-radius:8px;box-shadow:0 2px 8px ${color}66;white-space:nowrap;font-family:Inter,sans-serif;">${wait}m</div>`,
+      html: `<div style="background:${color};color:${textColor};font-weight:700;font-size:11px;padding:4px 10px;border-radius:10px;box-shadow:0 2px 10px ${color}44;white-space:nowrap;font-family:Inter,sans-serif;">${wait}m</div>`,
       iconSize: [40, 24],
       iconAnchor: [20, 12],
     });
@@ -51,7 +52,7 @@ export default function NearbyMap({ restaurants }) {
       <MapContainer center={center} zoom={12} className={styles.map} scrollWheelZoom={false}>
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-          url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
+          url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
         />
         {restaurants.map(r => (
           <Marker key={r.id} position={[r.latitude, r.longitude]} icon={createIcon(r.estimated_wait)}>
@@ -66,9 +67,9 @@ export default function NearbyMap({ restaurants }) {
         ))}
       </MapContainer>
       <div className={styles.legend}>
-        <span className={styles.legendItem}><span className={styles.dot} style={{background:'#00d4aa'}} /> &lt;10 min</span>
-        <span className={styles.legendItem}><span className={styles.dot} style={{background:'#ffb347'}} /> 10–25 min</span>
-        <span className={styles.legendItem}><span className={styles.dot} style={{background:'#ff6b6b'}} /> 25+ min</span>
+        <span className={styles.legendItem}><span className={styles.dot} style={{background:'#7FB77E'}} /> &lt;10 min</span>
+        <span className={styles.legendItem}><span className={styles.dot} style={{background:'#E9C46A'}} /> 10–25 min</span>
+        <span className={styles.legendItem}><span className={styles.dot} style={{background:'#E76F51'}} /> 25+ min</span>
       </div>
     </div>
   );

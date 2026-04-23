@@ -1,23 +1,22 @@
 .card {
   display: block;
-  background: rgba(255,255,255,0.04);
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(255,255,255,0.07);
-  border-radius: 18px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
   padding: 24px;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: var(--transition);
 }
 .card:hover {
-  background: rgba(255,255,255,0.07);
-  border-color: rgba(255,255,255,0.15);
-  transform: translateY(-4px);
-  box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-xl);
+  border-color: var(--border-hover);
 }
 .header { display: flex; align-items: center; gap: 14px; margin-bottom: 16px; }
 .emoji { font-size: 2.4rem; }
 .info { flex: 1; }
-.name { font-size: 1.15rem; font-weight: 700; letter-spacing: -0.01em; }
-.cuisine { font-size: 0.85rem; color: var(--text-secondary); margin-top: 2px; }
+.name { font-size: 1.2rem; font-weight: 800; font-family: 'Playfair Display', Georgia, serif; }
+.cuisine { font-size: 0.88rem; color: var(--text-secondary); margin-top: 2px; font-weight: 500; }
 .badge {
   display: flex;
   align-items: center;
@@ -25,31 +24,31 @@
   padding: 5px 14px;
   border-radius: 100px;
   font-size: 0.75rem;
-  font-weight: 600;
+  font-weight: 700;
 }
-.badgeDot { width: 6px; height: 6px; border-radius: 50%; animation: pulse 2s infinite; }
-.green { background: rgba(0,212,170,0.12); color: #00d4aa; }
-.green .badgeDot { background: #00d4aa; }
-.amber { background: rgba(255,179,71,0.12); color: #ffb347; }
-.amber .badgeDot { background: #ffb347; }
-.red { background: rgba(255,107,107,0.12); color: #ff6b6b; }
-.red .badgeDot { background: #ff6b6b; }
+.badgeDot { width: 6px; height: 6px; border-radius: 50%; animation: pulse 2.5s infinite; }
+.green { background: rgba(127,183,126,0.12); color: #5A8F59; }
+.green .badgeDot { background: #7FB77E; }
+.amber { background: rgba(233,196,106,0.15); color: #B8940A; }
+.amber .badgeDot { background: #E9C46A; }
+.red { background: rgba(231,111,81,0.12); color: #D45A3A; }
+.red .badgeDot { background: #E76F51; }
 .meta { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 16px; }
-.metaItem { font-size: 0.82rem; color: var(--text-muted); }
+.metaItem { font-size: 0.85rem; color: var(--text-secondary); font-weight: 500; }
 .footer {
   display: flex;
   align-items: center;
   gap: 20px;
   padding-top: 16px;
-  border-top: 1px solid rgba(255,255,255,0.06);
+  border-top: 1px solid var(--border);
 }
 .stat { display: flex; flex-direction: column; gap: 2px; }
-.statValue { font-size: 1.05rem; font-weight: 700; }
-.statLabel { font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; }
+.statValue { font-size: 1.1rem; font-weight: 800; color: var(--text-primary); }
+.statLabel { font-size: 0.72rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600; }
 .joinBtn { margin-left: auto; }
 @keyframes pulse {
   0%, 100% { opacity: 1; }
-  50% { opacity: 0.3; }
+  50% { opacity: 0.4; }
 }
 @media (max-width: 640px) {
   .card { padding: 18px; }

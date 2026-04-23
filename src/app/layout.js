@@ -10,6 +10,15 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body>
+        {/* Floating decorative bubbles */}
+        <div className="bubbles" aria-hidden="true">
+          <div className="bubble bubble-1" />
+          <div className="bubble bubble-2" />
+          <div className="bubble bubble-3" />
+          <div className="bubble bubble-4" />
+          <div className="bubble bubble-5" />
+          <div className="bubble bubble-6" />
+        </div>
         {children}
       </body>
     </html>
