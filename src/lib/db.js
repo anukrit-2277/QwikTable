@@ -2,20 +2,24 @@ import Database from 'better-sqlite3';
 import path from 'path';
 import bcrypt from 'bcryptjs';
 
-let db;
-
+// Use globalThis to persist DB across hot reloads and serverless invocations
 function getDb() {
-  if (!db) {
-    const dbPath = path.join(process.cwd(), 'qwiktable.db');
-    db = new Database(dbPath);
+  if (!globalThis.__qwiktableDb) {
+    // Use /tmp on Vercel (read-only filesystem), project dir locally
+    const isVercel = process.env.VERCEL || process.env.VERCEL_ENV;
+    const dbDir = isVercel ? '/tmp' : process.cwd();
+    const dbPath = path.join(dbDir, 'qwiktable.db');
+    const db = new Database(dbPath);
     db.pragma('journal_mode = WAL');
     db.pragma('foreign_keys = ON');
+    globalThis.__qwiktableDb = db;
     initializeDb();
   }
-  return db;
+  return globalThis.__qwiktableDb;
 }
 
 function initializeDb() {
+  const db = globalThis.__qwiktableDb;
   db.exec(`
     CREATE TABLE IF NOT EXISTS restaurants (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
