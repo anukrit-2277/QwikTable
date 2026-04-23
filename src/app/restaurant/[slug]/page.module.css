@@ -1,0 +1,36 @@
+.main { max-width: 800px; margin: 0 auto; padding: 24px; display: flex; flex-direction: column; gap: 24px; }
+.loading { display: flex; justify-content: center; align-items: center; min-height: 60vh; color: var(--text-muted); }
+.header {
+  background: rgba(255,255,255,0.04);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 18px;
+  padding: 28px;
+}
+.headerTop { display: flex; align-items: center; gap: 18px; }
+.emoji { font-size: 3.5rem; }
+.name { font-size: 1.8rem; font-weight: 800; letter-spacing: -0.02em; }
+.meta { font-size: 0.9rem; color: var(--text-secondary); margin-top: 4px; }
+.rating { font-size: 0.85rem; color: var(--text-muted); margin-top: 4px; }
+.joinSection {}
+.joinCard {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 28px;
+  background: linear-gradient(135deg, rgba(0,212,170,0.08), rgba(0,184,148,0.04));
+  border: 1px solid rgba(0,212,170,0.15);
+  border-radius: 18px;
+}
+.joinInfo h2 { font-size: 1.2rem; font-weight: 700; margin-bottom: 6px; }
+.joinInfo p { font-size: 0.9rem; color: var(--text-secondary); }
+.menuSection {}
+.sectionTitle { font-size: 1.3rem; font-weight: 700; margin-bottom: 4px; }
+.sectionSub { font-size: 0.88rem; color: var(--text-muted); margin-bottom: 16px; }
+@media (max-width: 640px) {
+  .main { padding: 16px; }
+  .headerTop { flex-direction: column; text-align: center; }
+  .joinCard { flex-direction: column; text-align: center; }
+  .name { font-size: 1.4rem; }
+}

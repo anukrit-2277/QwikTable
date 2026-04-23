@@ -1,0 +1,35 @@
+.alert {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 18px 24px;
+  background: linear-gradient(135deg, rgba(0,212,170,0.15), rgba(0,184,148,0.08));
+  border: 1px solid rgba(0,212,170,0.3);
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0,212,170,0.15);
+  animation: glow 3s ease-in-out infinite;
+}
+.icon { font-size: 2rem; }
+.content { flex: 1; }
+.title { font-size: 1rem; font-weight: 700; color: var(--accent); margin-bottom: 2px; }
+.message { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.4; }
+.message strong { color: var(--text-primary); }
+.dismiss {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition);
+  flex-shrink: 0;
+}
+.dismiss:hover { background: rgba(255,255,255,0.1); color: var(--text-primary); }
+@keyframes glow {
+  0%, 100% { box-shadow: 0 8px 32px rgba(0,212,170,0.15); }
+  50% { box-shadow: 0 8px 48px rgba(0,212,170,0.25), 0 0 60px rgba(0,212,170,0.08); }
+}

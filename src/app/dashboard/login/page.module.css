@@ -1,0 +1,19 @@
+.main { display: flex; justify-content: center; align-items: flex-start; min-height: calc(100vh - 64px); padding: 60px 24px; }
+.card {
+  width: 100%; max-width: 420px;
+  background: rgba(255,255,255,0.04); backdrop-filter: blur(20px);
+  border: 1px solid rgba(255,255,255,0.08); border-radius: 22px; padding: 40px;
+}
+.header { text-align: center; margin-bottom: 32px; }
+.icon { font-size: 3rem; display: block; margin-bottom: 12px; }
+.title { font-size: 1.4rem; font-weight: 800; }
+.subtitle { font-size: 0.9rem; color: var(--text-secondary); margin-top: 4px; }
+.form { display: flex; flex-direction: column; gap: 18px; }
+.field { display: flex; flex-direction: column; gap: 6px; }
+.label { font-size: 0.85rem; font-weight: 600; color: var(--text-secondary); }
+.error { color: var(--red); font-size: 0.85rem; font-weight: 500; }
+.hint { text-align: center; font-size: 0.8rem; color: var(--text-muted); }
+.hint code {
+  background: rgba(255,255,255,0.06); padding: 2px 8px; border-radius: 4px;
+  font-family: monospace; color: var(--accent);
+}

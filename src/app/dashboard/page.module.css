@@ -1,0 +1,53 @@
+.main { max-width: 900px; margin: 0 auto; padding: 24px; display: flex; flex-direction: column; gap: 24px; }
+.loading { display: flex; justify-content: center; align-items: center; min-height: 60vh; color: var(--text-muted); }
+.header {
+  display: flex; justify-content: space-between; align-items: center;
+  background: rgba(255,255,255,0.04); backdrop-filter: blur(20px);
+  border: 1px solid rgba(255,255,255,0.08); border-radius: 18px; padding: 24px 28px;
+}
+.title { font-size: 1.5rem; font-weight: 800; }
+.subtitle { font-size: 0.88rem; color: var(--text-secondary); margin-top: 2px; }
+.headerStats { display: flex; gap: 24px; }
+.hStat { display: flex; flex-direction: column; align-items: center; gap: 2px; }
+.hStatVal { font-size: 1.6rem; font-weight: 800; color: var(--accent); }
+.hStatLabel { font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.06em; }
+.section {}
+.sectionTitle { font-size: 1.1rem; font-weight: 700; margin-bottom: 12px; }
+.entryList { display: flex; flex-direction: column; gap: 8px; }
+.entry {
+  display: flex; align-items: center; gap: 14px;
+  padding: 16px 20px;
+  background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 14px; transition: var(--transition);
+}
+.entry:hover { background: rgba(255,255,255,0.06); }
+.entryNotified {
+  background: rgba(0,212,170,0.05) !important;
+  border-color: rgba(0,212,170,0.15) !important;
+}
+.entryPos {
+  font-size: 0.85rem; font-weight: 700; color: var(--text-muted);
+  min-width: 32px; text-align: center;
+}
+.entryInfo { flex: 1; min-width: 0; }
+.entryName { font-weight: 600; font-size: 0.95rem; display: block; }
+.entryMeta { font-size: 0.78rem; color: var(--text-muted); margin-top: 2px; display: block; }
+.entryActions { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+.preorderBadge {
+  padding: 3px 10px; border-radius: 8px;
+  background: rgba(255,179,71,0.1); font-size: 0.75rem; color: var(--amber);
+}
+.cancelSmall {
+  width: 30px; height: 30px; border-radius: 8px;
+  background: rgba(255,107,107,0.08); border: 1px solid rgba(255,107,107,0.15);
+  color: var(--red); font-size: 0.8rem;
+  display: flex; align-items: center; justify-content: center;
+  transition: var(--transition);
+}
+.cancelSmall:hover { background: rgba(255,107,107,0.15); }
+.empty { text-align: center; color: var(--text-muted); padding: 40px; font-size: 0.95rem; }
+@media (max-width: 768px) {
+  .header { flex-direction: column; gap: 16px; text-align: center; }
+  .entry { flex-wrap: wrap; }
+  .entryActions { width: 100%; justify-content: flex-end; margin-top: 8px; }
+}

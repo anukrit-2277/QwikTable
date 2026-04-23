@@ -1,5 +1,5 @@
 {
-  "name": "qwiktable-init",
+  "name": "qwiktable",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -8,8 +8,14 @@
     "start": "next start"
   },
   "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "better-sqlite3": "^12.9.0",
+    "framer-motion": "^12.38.0",
+    "jsonwebtoken": "^9.0.3",
+    "leaflet": "^1.9.4",
     "next": "16.2.4",
     "react": "19.2.4",
-    "react-dom": "19.2.4"
+    "react-dom": "19.2.4",
+    "react-leaflet": "^5.0.0"
   }
 }

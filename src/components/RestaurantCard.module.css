@@ -1,0 +1,58 @@
+.card {
+  display: block;
+  background: rgba(255,255,255,0.04);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 18px;
+  padding: 24px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.card:hover {
+  background: rgba(255,255,255,0.07);
+  border-color: rgba(255,255,255,0.15);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+}
+.header { display: flex; align-items: center; gap: 14px; margin-bottom: 16px; }
+.emoji { font-size: 2.4rem; }
+.info { flex: 1; }
+.name { font-size: 1.15rem; font-weight: 700; letter-spacing: -0.01em; }
+.cuisine { font-size: 0.85rem; color: var(--text-secondary); margin-top: 2px; }
+.badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 14px;
+  border-radius: 100px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+.badgeDot { width: 6px; height: 6px; border-radius: 50%; animation: pulse 2s infinite; }
+.green { background: rgba(0,212,170,0.12); color: #00d4aa; }
+.green .badgeDot { background: #00d4aa; }
+.amber { background: rgba(255,179,71,0.12); color: #ffb347; }
+.amber .badgeDot { background: #ffb347; }
+.red { background: rgba(255,107,107,0.12); color: #ff6b6b; }
+.red .badgeDot { background: #ff6b6b; }
+.meta { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 16px; }
+.metaItem { font-size: 0.82rem; color: var(--text-muted); }
+.footer {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+.stat { display: flex; flex-direction: column; gap: 2px; }
+.statValue { font-size: 1.05rem; font-weight: 700; }
+.statLabel { font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; }
+.joinBtn { margin-left: auto; }
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+@media (max-width: 640px) {
+  .card { padding: 18px; }
+  .footer { flex-wrap: wrap; gap: 12px; }
+  .joinBtn { width: 100%; margin-left: 0; margin-top: 4px; }
+}

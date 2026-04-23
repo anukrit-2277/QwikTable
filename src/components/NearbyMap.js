@@ -1,0 +1,75 @@
+'use client';
+import { useEffect, useState } from 'react';
+import dynamic from 'next/dynamic';
+import styles from './NearbyMap.module.css';
+
+// Dynamically import to avoid SSR issues with Leaflet
+const MapContainer = dynamic(() => import('react-leaflet').then(m => m.MapContainer), { ssr: false });
+const TileLayer = dynamic(() => import('react-leaflet').then(m => m.TileLayer), { ssr: false });
+const Marker = dynamic(() => import('react-leaflet').then(m => m.Marker), { ssr: false });
+const Popup = dynamic(() => import('react-leaflet').then(m => m.Popup), { ssr: false });
+
+export default function NearbyMap({ restaurants }) {
+  const [mounted, setMounted] = useState(false);
+  const [L, setL] = useState(null);
+
+  useEffect(() => {
+    import('leaflet').then(leaflet => {
+      setL(leaflet.default);
+      // Fix default marker icons
+      delete leaflet.default.Icon.Default.prototype._getIconUrl;
+      leaflet.default.Icon.Default.mergeOptions({
+        iconUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png',
+        iconRetinaUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png',
+        shadowUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
+      });
+    });
+    setMounted(true);
+  }, []);
+
+  if (!mounted || !L) {
+    return <div className={styles.placeholder}>Loading map...</div>;
+  }
+
+  const center = restaurants.length > 0
+    ? [restaurants[0].latitude, restaurants[0].longitude]
+    : [28.6139, 77.2090];
+
+  const createIcon = (wait) => {
+    const color = wait <= 10 ? '#00d4aa' : wait <= 25 ? '#ffb347' : '#ff6b6b';
+    return L.divIcon({
+      className: styles.customMarker,
+      html: `<div style="background:${color};color:#000;font-weight:800;font-size:11px;padding:4px 8px;border-radius:8px;box-shadow:0 2px 8px ${color}66;white-space:nowrap;font-family:Inter,sans-serif;">${wait}m</div>`,
+      iconSize: [40, 24],
+      iconAnchor: [20, 12],
+    });
+  };
+
+  return (
+    <div className={styles.wrap}>
+      <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+      <MapContainer center={center} zoom={12} className={styles.map} scrollWheelZoom={false}>
+        <TileLayer
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+          url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
+        />
+        {restaurants.map(r => (
+          <Marker key={r.id} position={[r.latitude, r.longitude]} icon={createIcon(r.estimated_wait)}>
+            <Popup>
+              <div className={styles.popup}>
+                <strong>{r.name}</strong>
+                <span>{r.cuisine} · ~{r.estimated_wait} min wait</span>
+                <a href={`/restaurant/${r.slug}`}>View & Join Queue →</a>
+              </div>
+            </Popup>
+          </Marker>
+        ))}
+      </MapContainer>
+      <div className={styles.legend}>
+        <span className={styles.legendItem}><span className={styles.dot} style={{background:'#00d4aa'}} /> &lt;10 min</span>
+        <span className={styles.legendItem}><span className={styles.dot} style={{background:'#ffb347'}} /> 10–25 min</span>
+        <span className={styles.legendItem}><span className={styles.dot} style={{background:'#ff6b6b'}} /> 25+ min</span>
+      </div>
+    </div>
+  );
+}
