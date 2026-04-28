@@ -45,7 +45,11 @@ function createWrapper(sqlDb) {
 
         run(...params) {
           sqlDb.run(sql, params);
-          return { changes: sqlDb.getRowsModified() };
+          const changes = sqlDb.getRowsModified();
+          // Get last inserted row id (equivalent to better-sqlite3's lastInsertRowid)
+          const lastIdResult = sqlDb.exec('SELECT last_insert_rowid() as id');
+          const lastInsertRowid = lastIdResult.length > 0 ? lastIdResult[0].values[0][0] : 0;
+          return { changes, lastInsertRowid };
         },
 
         get(...params) {
