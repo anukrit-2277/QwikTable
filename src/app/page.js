@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import RestaurantCard from '@/components/RestaurantCard';
 import NearbyMap from '@/components/NearbyMap';
@@ -17,17 +17,33 @@ export default function Home() {
   const [cuisineFilter, setCuisineFilter] = useState('');
   const [activeTab, setActiveTab] = useState('queue');
 
+  const filtersRef = useRef({ sortBy: '', cuisineFilter: '', activeFilter: '' });
+  filtersRef.current = { sortBy, cuisineFilter, activeFilter };
+
+  const normalizeRestaurantRow = (r) => ({
+    ...r,
+    estimated_wait: Number(r.estimated_wait) || 0,
+    queue_count: Number(r.queue_count) || 0,
+    rating: Number(r.rating) || 0,
+    total_tables: Number(r.total_tables) || 0,
+  });
+
   useEffect(() => {
     fetchRestaurants();
   }, []);
 
   const fetchRestaurants = async (q = '') => {
     setLoading(true);
-    const res = await fetch(`/api/restaurants${q ? `?q=${q}` : ''}`);
-    const data = await res.json();
-    setRestaurants(data);
-    setAllRestaurants(data);
-    setLoading(false);
+    try {
+      const res = await fetch(`/api/restaurants${q ? `?q=${q}` : ''}`);
+      const data = await res.json();
+      const normalized = Array.isArray(data) ? data.map(normalizeRestaurantRow) : [];
+      setAllRestaurants(normalized);
+      const { sortBy: s, cuisineFilter: c, activeFilter: a } = filtersRef.current;
+      applySortAndFilterToList(normalized, s, c, a);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleSearch = (e) => {
@@ -66,33 +82,30 @@ export default function Home() {
   // Get unique cuisines from restaurant data
   const cuisineOptions = [...new Set(allRestaurants.map(r => r.cuisine))].sort();
 
-  // Apply sort + filter together
-  const applySortAndFilter = (sort, cuisine, quickFilter) => {
-    let result = [...allRestaurants];
+  // Apply sort + filter to a list (used after fetch so filters aren't lost)
+  const applySortAndFilterToList = (baseList, sort, cuisine, quickFilter) => {
+    let result = [...baseList];
 
-    // Apply cuisine filter
     if (cuisine) {
-      result = result.filter(r => r.cuisine === cuisine);
+      result = result.filter((r) => r.cuisine === cuisine);
     }
 
-    // Apply quick filter
     if (quickFilter === 'short-wait') {
-      result = result.filter(r => r.estimated_wait <= 10);
+      result = result.filter((r) => (Number(r.estimated_wait) || 0) <= 10);
     } else if (quickFilter === 'walk-in') {
-      result = result.filter(r => r.queue_count <= 2);
+      result = result.filter((r) => (Number(r.queue_count) || 0) <= 2);
     } else if (quickFilter === 'top-rated') {
-      result = result.filter(r => r.rating >= 4.5);
+      result = result.filter((r) => (Number(r.rating) || 0) >= 4.5);
     } else if (quickFilter === 'large-groups') {
-      result = result.filter(r => r.total_tables >= 20);
+      result = result.filter((r) => (Number(r.total_tables) || 0) >= 20);
     }
 
-    // Apply sort
     if (sort === 'queue-asc') {
-      result.sort((a, b) => a.estimated_wait - b.estimated_wait);
+      result.sort((a, b) => (Number(a.estimated_wait) || 0) - (Number(b.estimated_wait) || 0));
     } else if (sort === 'queue-desc') {
-      result.sort((a, b) => b.estimated_wait - a.estimated_wait);
+      result.sort((a, b) => (Number(b.estimated_wait) || 0) - (Number(a.estimated_wait) || 0));
     } else if (sort === 'rating') {
-      result.sort((a, b) => b.rating - a.rating);
+      result.sort((a, b) => (Number(b.rating) || 0) - (Number(a.rating) || 0));
     } else if (sort === 'price-asc') {
       result.sort((a, b) => getPrice(a.slug) - getPrice(b.slug));
     } else if (sort === 'price-desc') {
@@ -100,6 +113,10 @@ export default function Home() {
     }
 
     setRestaurants(result);
+  };
+
+  const applySortAndFilter = (sort, cuisine, quickFilter) => {
+    applySortAndFilterToList(allRestaurants, sort, cuisine, quickFilter);
   };
 
   const handleSort = (val) => {
@@ -125,26 +142,26 @@ export default function Home() {
     setActiveFilter('');
     setSortBy('');
     setCuisineFilter('');
-    setRestaurants(allRestaurants);
+    setRestaurants(allRestaurants.map(normalizeRestaurantRow));
   };
 
 
   // Collection click handlers
   const handleCollection = (type) => {
-    const source = allRestaurants;
+    const source = allRestaurants.map(normalizeRestaurantRow);
     let filtered = source;
     switch (type) {
       case 'shortest':
-        filtered = source.filter(r => r.estimated_wait <= 15);
+        filtered = source.filter((r) => (Number(r.estimated_wait) || 0) <= 15);
         break;
       case 'premium':
-        filtered = source.filter(r => r.rating >= 4.5);
+        filtered = source.filter((r) => (Number(r.rating) || 0) >= 4.5);
         break;
       case 'pre-order':
         filtered = source; // all support it
         break;
       case 'walk-in':
-        filtered = source.filter(r => r.queue_count <= 3);
+        filtered = source.filter((r) => (Number(r.queue_count) || 0) <= 3);
         break;
     }
     setRestaurants(filtered);
