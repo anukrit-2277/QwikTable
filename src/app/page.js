@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import RestaurantCard from '@/components/RestaurantCard';
 import NearbyMap from '@/components/NearbyMap';
+import Image from 'next/image';
 import styles from './page.module.css';
 
 export default function Home() {
@@ -144,7 +145,7 @@ export default function Home() {
         <nav className={styles.videoNav}>
           <div className={styles.videoNavInner}>
             <span className={styles.videoLogo}>
-              <span className={styles.videoLogoIcon}>⚡</span> QwikTable
+              <Image src="/logo-white.png" alt="QwikTable" width={28} height={28} className={styles.videoLogoImg} /> QwikTable
             </span>
             <div className={styles.videoNavLinks}>
               <a href="/my-queue" className={styles.videoNavLink}>My Queue</a>
@@ -160,7 +161,10 @@ export default function Home() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: 'easeOut' }}
           >
-            <h1 className={styles.videoLogo2}>QwikTable</h1>
+            <h1 className={styles.videoLogo2}>
+              <Image src="/logo-white.png" alt="" width={48} height={48} className={styles.videoLogo2Img} />
+              QwikTable
+            </h1>
             <h2 className={styles.videoTitle}>
               Never wait in line<br />
               for a table again
@@ -254,7 +258,7 @@ export default function Home() {
                 <div className={styles.phoneNotch} />
                 <div className={styles.phoneScreen}>
                   <div className={styles.phoneContent}>
-                    <span className={styles.phoneIcon}>⚡</span>
+                    <Image src="/logo.png" alt="QwikTable" width={28} height={28} className={styles.phoneLogoImg} />
                     <span className={styles.phoneAppName}>QwikTable</span>
                     <div className={styles.phoneQueueCard}>
                       <span className={styles.phoneQueueEmoji}>🍕</span>

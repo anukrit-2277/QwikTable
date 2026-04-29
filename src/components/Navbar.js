@@ -1,6 +1,7 @@
 'use client';
 import { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { motion } from 'framer-motion';
 import styles from './Navbar.module.css';
@@ -19,7 +20,7 @@ export default function Navbar() {
     >
       <div className={styles.inner}>
         <Link href="/" className={styles.logo}>
-          <span className={styles.logoIcon}>⚡</span>
+          <Image src="/logo.png" alt="QwikTable" width={32} height={32} className={styles.logoImg} />
           <span className={styles.logoText}>QwikTable</span>
         </Link>
 
