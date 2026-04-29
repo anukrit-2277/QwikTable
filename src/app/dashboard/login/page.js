@@ -60,6 +60,13 @@ export default function DashboardLogin() {
                 <option value="handi-restaurant">Handi Restaurant</option>
                 <option value="curious-life-coffee">Curious Life Coffee Roasters</option>
                 <option value="niros">Niros</option>
+                <option value="chokhi-dhani">Chokhi Dhani</option>
+                <option value="spice-court">Spice Court</option>
+                <option value="anokhi-cafe">Anokhi Café</option>
+                <option value="peacock-rooftop">Peacock Rooftop Restaurant</option>
+                <option value="replay-diner">Replay Diner</option>
+                <option value="samode-haveli">Samode Haveli Restaurant</option>
+                <option value="tattoo-cafe">The Tattoo Café</option>
               </select>
             </div>
 

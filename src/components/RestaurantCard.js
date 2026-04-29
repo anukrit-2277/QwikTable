@@ -13,6 +13,13 @@ const RESTAURANT_IMAGES = {
   'handi-restaurant': 'https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?w=600&h=400&fit=crop',   // biryani/mughlai
   'curious-life-coffee': 'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=600&h=400&fit=crop', // latte art
   'niros': 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=600&h=400&fit=crop',               // food spread
+  'chokhi-dhani': 'https://images.unsplash.com/photo-1567337710282-00832b415979?w=600&h=400&fit=crop',        // Rajasthani village food
+  'spice-court': 'https://images.unsplash.com/photo-1596797038530-2c107229654b?w=600&h=400&fit=crop',         // Indian spice dishes
+  'anokhi-cafe': 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=600&h=400&fit=crop',         // healthy organic salad
+  'peacock-rooftop': 'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=600&h=400&fit=crop',     // rooftop dining
+  'replay-diner': 'https://images.unsplash.com/photo-1550547660-d9450f859349?w=600&h=400&fit=crop',           // burger and fries
+  'samode-haveli': 'https://images.unsplash.com/photo-1600891964092-4316c288032e?w=600&h=400&fit=crop',       // heritage dining
+  'tattoo-cafe': 'https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=600&h=400&fit=crop',            // trendy cafe
 };
 
 const DEFAULT_IMAGE = 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=600&h=400&fit=crop';
@@ -33,6 +40,13 @@ export default function RestaurantCard({ restaurant, index = 0 }) {
     'handi-restaurant': '₹800',
     'curious-life-coffee': '₹500',
     'niros': '₹1,200',
+    'chokhi-dhani': '₹1,000',
+    'spice-court': '₹700',
+    'anokhi-cafe': '₹600',
+    'peacock-rooftop': '₹500',
+    'replay-diner': '₹450',
+    'samode-haveli': '₹3,500',
+    'tattoo-cafe': '₹400',
   };
   const avgCost = COST_MAP[restaurant.slug] || '₹800';
 
@@ -79,7 +93,9 @@ export default function RestaurantCard({ restaurant, index = 0 }) {
           </div>
           <div className={styles.bottomRow}>
             <span className={styles.address}>{restaurant.address}</span>
-            <span className={styles.wait}>{restaurant.estimated_wait} min</span>
+            <span className={styles.wait}>
+              {restaurant.estimated_wait === 0 ? '✓ No wait' : `⏱ ~${restaurant.estimated_wait} min queue`}
+            </span>
           </div>
         </div>
       </Link>

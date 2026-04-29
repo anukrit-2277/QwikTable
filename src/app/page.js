@@ -13,6 +13,8 @@ export default function Home() {
   const [loading, setLoading] = useState(true);
   const [view, setView] = useState('grid');
   const [activeFilter, setActiveFilter] = useState('');
+  const [sortBy, setSortBy] = useState('');
+  const [cuisineFilter, setCuisineFilter] = useState('');
   const [activeTab, setActiveTab] = useState('queue');
 
   useEffect(() => {
@@ -50,43 +52,82 @@ export default function Home() {
     document.getElementById('restaurant-grid')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
 
-  // Filter handlers
-  const applyFilter = (filterName) => {
-    setActiveFilter(prev => prev === filterName ? '' : filterName);
-    const source = allRestaurants;
-    let filtered = source;
+  // Price map for sorting (matches RestaurantCard)
+  const COST_VALUES = {
+    'tapri-central': 300, 'bar-palladio': 2500, 'rawat-mishthan-bhandar': 200,
+    'suvarna-mahal': 4000, 'lmb-jaipur': 600, 'handi-restaurant': 800,
+    'curious-life-coffee': 500, 'niros': 1200, 'chokhi-dhani': 1000,
+    'spice-court': 700, 'anokhi-cafe': 600, 'peacock-rooftop': 500,
+    'replay-diner': 450, 'samode-haveli': 3500, 'tattoo-cafe': 400,
+  };
 
-    if (activeFilter === filterName) {
-      // Toggle off
-      setRestaurants(source);
-      return;
+  const getPrice = (slug) => COST_VALUES[slug] || 800;
+
+  // Get unique cuisines from restaurant data
+  const cuisineOptions = [...new Set(allRestaurants.map(r => r.cuisine))].sort();
+
+  // Apply sort + filter together
+  const applySortAndFilter = (sort, cuisine, quickFilter) => {
+    let result = [...allRestaurants];
+
+    // Apply cuisine filter
+    if (cuisine) {
+      result = result.filter(r => r.cuisine === cuisine);
     }
 
-    switch (filterName) {
-      case 'short-wait':
-        filtered = source.filter(r => r.estimated_wait <= 15);
-        break;
-      case 'rating':
-        filtered = source.filter(r => r.rating >= 4.0);
-        break;
-      case 'open-now':
-        filtered = source; // all are open in demo
-        break;
-      case 'walk-in':
-        filtered = source.filter(r => r.queue_count <= 3);
-        break;
-      case 'large-groups':
-        filtered = source.filter(r => r.total_tables >= 20);
-        break;
-      case 'pre-order':
-        filtered = source; // all support pre-order
-        break;
-      default:
-        filtered = source;
+    // Apply quick filter
+    if (quickFilter === 'short-wait') {
+      result = result.filter(r => r.estimated_wait <= 10);
+    } else if (quickFilter === 'walk-in') {
+      result = result.filter(r => r.queue_count <= 2);
+    } else if (quickFilter === 'top-rated') {
+      result = result.filter(r => r.rating >= 4.5);
+    } else if (quickFilter === 'large-groups') {
+      result = result.filter(r => r.total_tables >= 20);
     }
-    setRestaurants(filtered);
+
+    // Apply sort
+    if (sort === 'queue-asc') {
+      result.sort((a, b) => a.estimated_wait - b.estimated_wait);
+    } else if (sort === 'queue-desc') {
+      result.sort((a, b) => b.estimated_wait - a.estimated_wait);
+    } else if (sort === 'rating') {
+      result.sort((a, b) => b.rating - a.rating);
+    } else if (sort === 'price-asc') {
+      result.sort((a, b) => getPrice(a.slug) - getPrice(b.slug));
+    } else if (sort === 'price-desc') {
+      result.sort((a, b) => getPrice(b.slug) - getPrice(a.slug));
+    }
+
+    setRestaurants(result);
+  };
+
+  const handleSort = (val) => {
+    setSortBy(val);
+    applySortAndFilter(val, cuisineFilter, activeFilter);
     setTimeout(scrollToGrid, 200);
   };
+
+  const handleCuisineFilter = (val) => {
+    setCuisineFilter(val);
+    applySortAndFilter(sortBy, val, activeFilter);
+    setTimeout(scrollToGrid, 200);
+  };
+
+  const handleQuickFilter = (filterName) => {
+    const newFilter = activeFilter === filterName ? '' : filterName;
+    setActiveFilter(newFilter);
+    applySortAndFilter(sortBy, cuisineFilter, newFilter);
+    setTimeout(scrollToGrid, 200);
+  };
+
+  const handleReset = () => {
+    setActiveFilter('');
+    setSortBy('');
+    setCuisineFilter('');
+    setRestaurants(allRestaurants);
+  };
+
 
   // Collection click handlers
   const handleCollection = (type) => {
@@ -380,17 +421,42 @@ export default function Home() {
           </div>
         </motion.section>
 
-        {/* Filter Chips */}
+        {/* Sort & Filter Controls */}
         <div className={styles.filterRow}>
-          <button className={styles.filterChip} onClick={() => { setRestaurants(allRestaurants); setActiveFilter(''); }}>
-            <span>⚙️</span> Reset
-          </button>
-          <button className={`${styles.filterChip} ${activeFilter === 'short-wait' ? styles.filterChipActive : ''}`} onClick={() => applyFilter('short-wait')}>Short Wait</button>
-          <button className={`${styles.filterChip} ${activeFilter === 'rating' ? styles.filterChipActive : ''}`} onClick={() => applyFilter('rating')}>Rating: 4.0+</button>
-          <button className={`${styles.filterChip} ${activeFilter === 'pre-order' ? styles.filterChipActive : ''}`} onClick={() => applyFilter('pre-order')}>Pre-Order Available</button>
-          <button className={`${styles.filterChip} ${activeFilter === 'open-now' ? styles.filterChipActive : ''}`} onClick={() => applyFilter('open-now')}>Open Now</button>
-          <button className={`${styles.filterChip} ${activeFilter === 'walk-in' ? styles.filterChipActive : ''}`} onClick={() => applyFilter('walk-in')}>Walk-in Friendly</button>
-          <button className={`${styles.filterChip} ${activeFilter === 'large-groups' ? styles.filterChipActive : ''}`} onClick={() => applyFilter('large-groups')}>Large Groups</button>
+          <select
+            className={styles.filterSelect}
+            value={sortBy}
+            onChange={e => handleSort(e.target.value)}
+          >
+            <option value="">Sort by</option>
+            <option value="queue-asc">Queue Time: Low → High</option>
+            <option value="queue-desc">Queue Time: High → Low</option>
+            <option value="rating">Rating: Best First</option>
+            <option value="price-asc">Price: Low → High</option>
+            <option value="price-desc">Price: High → Low</option>
+          </select>
+
+          <select
+            className={styles.filterSelect}
+            value={cuisineFilter}
+            onChange={e => handleCuisineFilter(e.target.value)}
+          >
+            <option value="">All Cuisines</option>
+            {cuisineOptions.map(c => (
+              <option key={c} value={c}>{c}</option>
+            ))}
+          </select>
+
+          <button className={`${styles.filterChip} ${activeFilter === 'short-wait' ? styles.filterChipActive : ''}`} onClick={() => handleQuickFilter('short-wait')}>⚡ Short Wait</button>
+          <button className={`${styles.filterChip} ${activeFilter === 'walk-in' ? styles.filterChipActive : ''}`} onClick={() => handleQuickFilter('walk-in')}>🚶 Walk-in Friendly</button>
+          <button className={`${styles.filterChip} ${activeFilter === 'top-rated' ? styles.filterChipActive : ''}`} onClick={() => handleQuickFilter('top-rated')}>⭐ Top Rated</button>
+          <button className={`${styles.filterChip} ${activeFilter === 'large-groups' ? styles.filterChipActive : ''}`} onClick={() => handleQuickFilter('large-groups')}>👥 Large Groups</button>
+
+          {(activeFilter || sortBy || cuisineFilter) && (
+            <button className={styles.filterChipReset} onClick={handleReset}>
+              ✕ Reset
+            </button>
+          )}
         </div>
 
         {/* View Toggle + Restaurant Grid */}

@@ -320,8 +320,26 @@
   overflow-x: auto;
   -ms-overflow-style: none;
   scrollbar-width: none;
+  align-items: center;
 }
 .filterRow::-webkit-scrollbar { display: none; }
+.filterSelect {
+  padding: 10px 16px;
+  border-radius: 10px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  color: var(--text-primary);
+  font-size: 0.92rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  box-shadow: var(--shadow-sm);
+  white-space: nowrap;
+  appearance: auto;
+  min-width: 140px;
+}
+.filterSelect:hover { border-color: var(--border-hover); }
+.filterSelect:focus { outline: none; border-color: var(--accent); }
 .filterChip {
   display: flex;
   align-items: center;
@@ -336,6 +354,7 @@
   white-space: nowrap;
   transition: var(--transition);
   box-shadow: var(--shadow-sm);
+  cursor: pointer;
 }
 .filterChip:hover { border-color: var(--border-hover); color: var(--text-primary); }
 .filterChipActive {
@@ -343,6 +362,22 @@
   border-color: rgba(231,111,81,0.2) !important;
   color: var(--red) !important;
 }
+.filterChipReset {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 20px;
+  border-radius: 10px;
+  background: rgba(231, 111, 81, 0.08);
+  border: 1px solid rgba(231, 111, 81, 0.2);
+  color: var(--red);
+  font-size: 0.92rem;
+  font-weight: 700;
+  white-space: nowrap;
+  transition: var(--transition);
+  cursor: pointer;
+}
+.filterChipReset:hover { background: rgba(231, 111, 81, 0.15); }
 
 .toolbar {
   display: flex;
