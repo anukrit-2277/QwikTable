@@ -181,7 +181,7 @@
 
 
 /* ===== Main Content Below Hero ===== */
-.main { padding-bottom: 60px; }
+.main { padding-bottom: 60px; overflow-x: hidden; max-width: 100vw; }
 
 /* ===== Breadcrumb ===== */
 .breadcrumb {
@@ -321,6 +321,7 @@
   -ms-overflow-style: none;
   scrollbar-width: none;
   align-items: center;
+  flex-wrap: wrap;
 }
 .filterRow::-webkit-scrollbar { display: none; }
 .filterSelect {
@@ -417,6 +418,7 @@
   max-width: 1200px;
   margin: 20px auto 0;
   padding: 0 24px;
+  overflow: hidden;
 }
 .skeleton {
   height: 200px;
@@ -662,8 +664,11 @@
   .categoryTabs { gap: 20px; padding: 0 16px; overflow-x: auto; -webkit-overflow-scrolling: touch; }
   .breadcrumb { padding: 20px 16px 8px; }
 
-  .filterRow { padding: 0 16px; overflow-x: auto; -webkit-overflow-scrolling: touch; flex-wrap: nowrap; }
+  .filterRow { padding: 0 16px 12px; overflow-x: auto; -webkit-overflow-scrolling: touch; flex-wrap: nowrap; }
   .filterRow::-webkit-scrollbar { display: none; }
+  .filterSelect { min-width: 120px; font-size: 0.85rem; padding: 8px 12px; }
+  .filterChip { padding: 8px 14px; font-size: 0.85rem; }
+  .filterChipReset { padding: 8px 14px; font-size: 0.85rem; }
 
   .toolbar { padding: 0 16px; margin: 16px auto 16px; }
   .sectionTitle { font-size: 1.3rem; }
@@ -700,8 +705,10 @@
 
   .breadcrumb { padding: 16px 16px 6px; font-size: 0.85rem; }
 
-  .filterRow { padding: 0 16px; gap: 8px; }
-  .filterChip { padding: 8px 14px; font-size: 0.82rem; }
+  .filterRow { padding: 0 16px 10px; gap: 8px; flex-wrap: nowrap; overflow-x: auto; }
+  .filterSelect { min-width: 110px; font-size: 0.8rem; padding: 8px 10px; }
+  .filterChip { padding: 8px 12px; font-size: 0.8rem; }
+  .filterChipReset { padding: 8px 12px; font-size: 0.8rem; }
 
   .toolbar { padding: 0 16px; flex-wrap: wrap; gap: 8px; }
   .sectionTitle { font-size: 1.2rem; }
