@@ -413,11 +413,15 @@
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 24px;
   max-width: 1200px;
   margin: 20px auto 0;
   padding: 0 24px;
+}
+
+.grid > * {
+  min-width: 0;
 }
 .skeleton {
   height: 200px;
@@ -623,7 +627,7 @@
 
 /* Tablet landscape */
 @media (max-width: 1024px) {
-  .grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+  .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
   .collectionsGrid { grid-template-columns: repeat(2, 1fr); }
   .featuresGrid { gap: 28px; }
   .videoTitle { font-size: 3rem; }
@@ -642,7 +646,7 @@
   .videoNavLink { padding: 6px 12px; font-size: 0.82rem; }
   .videoLogo { font-size: 1.3rem; }
 
-  .grid { grid-template-columns: repeat(2, 1fr); gap: 16px; padding: 0 16px; }
+  .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; padding: 0 16px; }
   .scrollBtn { padding-bottom: 16px; }
 
   .featuresSection { padding: 60px 16px 80px; }
