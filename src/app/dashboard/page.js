@@ -125,8 +125,8 @@ export default function Dashboard() {
                         <ul className={styles.preorderList}>
                           {entry.preorder_items.map((item, idx) => (
                             <li key={idx} className={styles.preorderItem}>
-                              <span className={styles.preorderItemName}>{item.name} × {item.qty}</span>
-                              <span className={styles.preorderItemPrice}>₹{(item.price * item.qty).toFixed(0)}</span>
+                              <span className={styles.preorderItemName}>{item.name} × {item.quantity}</span>
+                              <span className={styles.preorderItemPrice}>₹{(item.price * item.quantity).toFixed(0)}</span>
                             </li>
                           ))}
                         </ul>
@@ -202,8 +202,8 @@ export default function Dashboard() {
                       <ul className={styles.preorderList}>
                         {entry.preorder_items.map((item, idx) => (
                           <li key={idx} className={styles.preorderItem}>
-                            <span className={styles.preorderItemName}>{item.name} × {item.qty}</span>
-                            <span className={styles.preorderItemPrice}>₹{(item.price * item.qty).toFixed(0)}</span>
+                            <span className={styles.preorderItemName}>{item.name} × {item.quantity}</span>
+                            <span className={styles.preorderItemPrice}>₹{(item.price * item.quantity).toFixed(0)}</span>
                           </li>
                         ))}
                       </ul>
