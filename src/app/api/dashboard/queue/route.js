@@ -17,16 +17,25 @@ export async function GET(request) {
   const db = getDb();
   const entries = db.prepare(
     `SELECT qe.*, 
-      (SELECT COUNT(*) FROM pre_orders WHERE queue_entry_id = qe.id) as has_preorder
+      (SELECT COUNT(*) FROM pre_orders WHERE queue_entry_id = qe.id) as has_preorder,
+      (SELECT items FROM pre_orders WHERE queue_entry_id = qe.id LIMIT 1) as preorder_items,
+      (SELECT total_amount FROM pre_orders WHERE queue_entry_id = qe.id LIMIT 1) as preorder_total
      FROM queue_entries qe 
      WHERE qe.restaurant_id = ? AND qe.status IN ('waiting', 'notified')
      ORDER BY qe.position ASC`
   ).all(payload.restaurantId);
 
+  // Parse pre-order items JSON for each entry
+  const parsedEntries = entries.map(e => ({
+    ...e,
+    preorder_items: e.preorder_items ? JSON.parse(e.preorder_items) : [],
+    preorder_total: e.preorder_total || 0,
+  }));
+
   const restaurant = db.prepare('SELECT name, slug, total_tables, occupied_tables FROM restaurants WHERE id = ?')
     .get(payload.restaurantId);
 
-  return NextResponse.json({ entries, restaurant });
+  return NextResponse.json({ entries: parsedEntries, restaurant });
 }
 
 export async function PATCH(request) {

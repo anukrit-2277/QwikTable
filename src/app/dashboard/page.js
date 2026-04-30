@@ -10,6 +10,16 @@ export default function Dashboard() {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [actionLoading, setActionLoading] = useState(null);
+  const [expandedOrders, setExpandedOrders] = useState(new Set());
+
+  const togglePreorder = (entryId) => {
+    setExpandedOrders(prev => {
+      const next = new Set(prev);
+      if (next.has(entryId)) next.delete(entryId);
+      else next.add(entryId);
+      return next;
+    });
+  };
 
   const fetchQueue = useCallback(async () => {
     const res = await fetch('/api/dashboard/queue');
@@ -80,26 +90,51 @@ export default function Dashboard() {
                 {notified.map(entry => (
                   <motion.div
                     key={entry.id}
-                    className={`${styles.entry} ${styles.entryNotified}`}
+                    className={`${styles.entryWrapper} ${styles.entryNotified}`}
                     layout
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0, x: 20 }}
                   >
-                    <div className={styles.entryInfo}>
-                      <span className={styles.entryName}>{entry.customer_name}</span>
-                      <span className={styles.entryMeta}>Party of {entry.party_size} · {entry.join_type} · #{entry.position}</span>
+                    <div className={styles.entry}>
+                      <div className={styles.entryInfo}>
+                        <span className={styles.entryName}>{entry.customer_name}</span>
+                        <span className={styles.entryMeta}>Party of {entry.party_size} · {entry.join_type} · #{entry.position}</span>
+                      </div>
+                      <div className={styles.entryActions}>
+                        {entry.has_preorder > 0 && (
+                          <button
+                            className={`${styles.preorderBadge} ${expandedOrders.has(entry.id) ? styles.preorderBadgeActive : ''}`}
+                            onClick={() => togglePreorder(entry.id)}
+                          >
+                            📦 Pre-order ({entry.preorder_items.length} items) {expandedOrders.has(entry.id) ? '▲' : '▼'}
+                          </button>
+                        )}
+                        <button
+                          className="btn btn-primary btn-sm"
+                          onClick={() => handleAction(entry.id, 'seat')}
+                          disabled={actionLoading === entry.id}
+                        >
+                          Seat
+                        </button>
+                      </div>
                     </div>
-                    <div className={styles.entryActions}>
-                      {entry.has_preorder > 0 && <span className={styles.preorderBadge}>📦 Pre-order</span>}
-                      <button
-                        className="btn btn-primary btn-sm"
-                        onClick={() => handleAction(entry.id, 'seat')}
-                        disabled={actionLoading === entry.id}
-                      >
-                        Seat
-                      </button>
-                    </div>
+                    {entry.has_preorder > 0 && expandedOrders.has(entry.id) && (
+                      <div className={styles.preorderDetails}>
+                        <div className={styles.preorderHeader}>🍽️ Pre-ordered Items</div>
+                        <ul className={styles.preorderList}>
+                          {entry.preorder_items.map((item, idx) => (
+                            <li key={idx} className={styles.preorderItem}>
+                              <span className={styles.preorderItemName}>{item.name} × {item.qty}</span>
+                              <span className={styles.preorderItemPrice}>₹{(item.price * item.qty).toFixed(0)}</span>
+                            </li>
+                          ))}
+                        </ul>
+                        <div className={styles.preorderTotal}>
+                          Total: ₹{entry.preorder_total.toFixed(0)}
+                        </div>
+                      </div>
+                    )}
                   </motion.div>
                 ))}
               </AnimatePresence>
@@ -115,43 +150,68 @@ export default function Dashboard() {
               {waiting.map(entry => (
                 <motion.div
                   key={entry.id}
-                  className={styles.entry}
+                  className={styles.entryWrapper}
                   layout
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   exit={{ opacity: 0, x: 20 }}
                 >
-                  <div className={styles.entryPos}>#{entry.position}</div>
-                  <div className={styles.entryInfo}>
-                    <span className={styles.entryName}>{entry.customer_name}</span>
-                    <span className={styles.entryMeta}>
-                      Party of {entry.party_size} · {entry.join_type} · ~{entry.estimated_wait} min
-                    </span>
+                  <div className={styles.entry}>
+                    <div className={styles.entryPos}>#{entry.position}</div>
+                    <div className={styles.entryInfo}>
+                      <span className={styles.entryName}>{entry.customer_name}</span>
+                      <span className={styles.entryMeta}>
+                        Party of {entry.party_size} · {entry.join_type} · ~{entry.estimated_wait} min
+                      </span>
+                    </div>
+                    <div className={styles.entryActions}>
+                      {entry.has_preorder > 0 && (
+                        <button
+                          className={`${styles.preorderBadge} ${expandedOrders.has(entry.id) ? styles.preorderBadgeActive : ''}`}
+                          onClick={() => togglePreorder(entry.id)}
+                        >
+                          📦 {expandedOrders.has(entry.id) ? '▲' : '▼'}
+                        </button>
+                      )}
+                      <button
+                        className="btn btn-secondary btn-sm"
+                        onClick={() => handleAction(entry.id, 'notify')}
+                        disabled={actionLoading === entry.id}
+                      >
+                        Notify
+                      </button>
+                      <button
+                        className="btn btn-primary btn-sm"
+                        onClick={() => handleAction(entry.id, 'seat')}
+                        disabled={actionLoading === entry.id}
+                      >
+                        Seat
+                      </button>
+                      <button
+                        className={styles.cancelSmall}
+                        onClick={() => handleAction(entry.id, 'cancel')}
+                        disabled={actionLoading === entry.id}
+                      >
+                        ✕
+                      </button>
+                    </div>
                   </div>
-                  <div className={styles.entryActions}>
-                    {entry.has_preorder > 0 && <span className={styles.preorderBadge}>📦</span>}
-                    <button
-                      className="btn btn-secondary btn-sm"
-                      onClick={() => handleAction(entry.id, 'notify')}
-                      disabled={actionLoading === entry.id}
-                    >
-                      Notify
-                    </button>
-                    <button
-                      className="btn btn-primary btn-sm"
-                      onClick={() => handleAction(entry.id, 'seat')}
-                      disabled={actionLoading === entry.id}
-                    >
-                      Seat
-                    </button>
-                    <button
-                      className={styles.cancelSmall}
-                      onClick={() => handleAction(entry.id, 'cancel')}
-                      disabled={actionLoading === entry.id}
-                    >
-                      ✕
-                    </button>
-                  </div>
+                  {entry.has_preorder > 0 && expandedOrders.has(entry.id) && (
+                    <div className={styles.preorderDetails}>
+                      <div className={styles.preorderHeader}>🍽️ Pre-ordered Items</div>
+                      <ul className={styles.preorderList}>
+                        {entry.preorder_items.map((item, idx) => (
+                          <li key={idx} className={styles.preorderItem}>
+                            <span className={styles.preorderItemName}>{item.name} × {item.qty}</span>
+                            <span className={styles.preorderItemPrice}>₹{(item.price * item.qty).toFixed(0)}</span>
+                          </li>
+                        ))}
+                      </ul>
+                      <div className={styles.preorderTotal}>
+                        Total: ₹{entry.preorder_total.toFixed(0)}
+                      </div>
+                    </div>
+                  )}
                 </motion.div>
               ))}
             </AnimatePresence>

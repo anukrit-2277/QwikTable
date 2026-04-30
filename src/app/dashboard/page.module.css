@@ -17,10 +17,8 @@
 .entry {
   display: flex; align-items: center; gap: 14px;
   padding: 16px 20px;
-  background: var(--bg-card); border: 1px solid var(--border);
-  border-radius: var(--radius-md); transition: var(--transition);
 }
-.entry:hover { box-shadow: var(--shadow-sm); border-color: var(--border-hover); }
+.entry:hover { }
 .entryNotified {
   background: var(--green-soft) !important;
   border-color: rgba(127,183,126,0.2) !important;
@@ -36,6 +34,43 @@
 .preorderBadge {
   padding: 3px 10px; border-radius: 8px;
   background: var(--terracotta-soft); font-size: 0.75rem; color: var(--terracotta);
+  border: 1px solid transparent; cursor: pointer; transition: var(--transition);
+  font-weight: 600; white-space: nowrap;
+}
+.preorderBadge:hover { border-color: var(--terracotta); }
+.preorderBadgeActive {
+  background: var(--terracotta) !important; color: #fff !important;
+}
+.entryWrapper {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: var(--radius-md); transition: var(--transition);
+  overflow: hidden;
+}
+.entryWrapper:hover { box-shadow: var(--shadow-sm); border-color: var(--border-hover); }
+.preorderDetails {
+  padding: 12px 20px 16px;
+  border-top: 1px dashed var(--border);
+  background: rgba(214, 167, 122, 0.04);
+}
+.preorderHeader {
+  font-size: 0.8rem; font-weight: 700; color: var(--terracotta);
+  margin-bottom: 8px; letter-spacing: 0.02em;
+}
+.preorderList {
+  list-style: none; padding: 0; margin: 0;
+  display: flex; flex-direction: column; gap: 4px;
+}
+.preorderItem {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 4px 0; font-size: 0.82rem;
+}
+.preorderItemName { color: var(--text-primary); font-weight: 500; }
+.preorderItemPrice { color: var(--text-secondary); font-weight: 600; white-space: nowrap; }
+.preorderTotal {
+  margin-top: 8px; padding-top: 8px;
+  border-top: 1px solid var(--border);
+  font-size: 0.85rem; font-weight: 700; color: var(--accent);
+  text-align: right;
 }
 .cancelSmall {
   width: 30px; height: 30px; border-radius: 8px;
